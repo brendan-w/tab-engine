@@ -1,14 +1,52 @@
 
+/*
+
+Parsing engine for generating searchable progression signitures
+
+
+A tab signiture is derived from an interval matrix like such:
+	where x axis = any given note in the tab  (n)
+	and y axis   = the next note in the tab   (n+1)
+	and the value at (x,y) is the number of times this interval occured
+
+
+    A A# B C C# D D# E F F# G G# 
+    ____________________________
+A  |     1
+A# |                     8
+B  |         15             4  5
+C  |
+C# |     6
+D  |  3           2  7
+D# |
+E  |                  4
+F  |            1
+F# |            9
+G  |
+G# |
+
+
+The matrix is then normalized [0-255] and rendered in row-major hex, and should look something like this (288 chars of hex):
+
+D000900D0000000ACC007FAE74747950FA700200004100CB440EEB007C190000B93C667900CD0737003900B93C00000000D9CFB200BA00DCC50000E2005C00009E7ABE008C0096070045D300FE06FD7500EE5B0000E65999009FCC0000004C9DFA1FCDD64F75F6C2A21CACE3FE006922004322C84E0000D1DE005C3ACF4100000000AE0061A5BDB0CE9CA500DF390000
+
+*/
+
+
 //regex
 var digitTest = /[0-9]/;
 var stringTest = /(.*\|-.*)|(.*-\|.*)/;
 var sectionDivider = /\n\s*\n/;
+var songTest = /name|song/i;
+var artistTest = /artist|band|group|by/i;
+var tuningTest = /tuning/i;
 
 
-function parse(text)
+function parse(tab_text, user_data)
 {
-	sections = textToSections(text);
+	sections = textToSections(tab_text);
 
+	var sig = "";
 
 	sections.forEach(function(section) {
 		var strings = sectionToStrings(section);
@@ -16,14 +54,9 @@ function parse(text)
 
 		if(numStrings > 0)
 		{
-			//it's part of the tab
 			var columns = stringsToColumns(strings);
 			var frames = columnsToFrames(columns, numStrings);
 			console.log(frames);
-		}
-		else
-		{
-			//it's meta data
 		}
 	});
 
