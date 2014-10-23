@@ -108,6 +108,7 @@ function columnsToFrames(columns, numStrings)
 
 	function reset()
 	{
+		current = [];
 		for(var s = 0; s < numStrings; s++)
 			current[s] = "";
 	}
@@ -115,13 +116,7 @@ function columnsToFrames(columns, numStrings)
 	//pushes an integer version of the current frame onto the frame list
 	function commit()
 	{
-		var newFrame = [];
-		current.forEach(function(v, s) {
-			newFrame[s] = -1;
-			if(v !== "")
-				newFrame[s] = parseInt(current[s]);
-		});
-		frames.push(newFrame);
+		frames.push(current);
 		reset();
 	}
 
@@ -139,14 +134,14 @@ function columnsToFrames(columns, numStrings)
 	//compares the given column and the current column to determine if the current frame should be committed
 	function isBreakPoint(column)
 	{
-		//quick test for empty current frame (frequent case)
+		//quick test for empty current frame (skip white space, still waiting for numbers to accumulate)
 		if(current.join('').length === 0)
 			return false;
 
 		for(var s = 0; s < numStrings; s++)
 		{
 			//if digits have been accumulated, and digits are still incoming, then this is NOT a breakpoint
-			if((current[s] !== "") && digitTest.test(column))
+			if((current[s] !== "") && digitTest.test(column[s]))
 				return false;
 		}
 		return true;
