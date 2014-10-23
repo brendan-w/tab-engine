@@ -64,7 +64,7 @@ function columnsToFrames(columns, numStrings)
 
 	function reset()
 	{
-		for(int s = 0; s < numStrings; s++)
+		for(var s = 0; s < numStrings; s++)
 			current[s] = "";
 	}
 
@@ -84,7 +84,7 @@ function columnsToFrames(columns, numStrings)
 	//appends the given columns digit chars to those in the current frame
 	function add(column)
 	{
-		for(int s = 0; s < numStrings; s++)
+		for(var s = 0; s < numStrings; s++)
 		{
 			var ch = column[s]; //char
 			if(digitChars.test(ch))
