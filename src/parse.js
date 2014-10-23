@@ -34,12 +34,14 @@ D000900D0000000ACC007FAE74747950FA700200004100CB440EEB007C190000B93C667900CD0737
 
 
 //regex
-var digitTest = /[0-9]/;
-var stringTest = /(.*\|-.*)|(.*-\|.*)/;
-var sectionDivider = /\n\s*\n/;
-var songTest = /name|song/i;
-var artistTest = /artist|band|group|by/i;
-var tuningTest = /tuning/i;
+var digitTest = /[0-9]/;                  //check whether a digit is a character
+var stringTest = /(.*\|-.*)|(.*-\|.*)/;   //check whether a string represents a guitar string (in tab form)
+var sectionDivider = /\n\s*\n/;           //splitter for each row of tabs in the document
+var songTest = /name|song/i;              //keys found near the song name
+var artistTest = /artist|band|group|by/i; //keys found near the artist's name
+var tuningTest = /tuning/i;               //keys found near the tuning definition
+var maxFret = 36;                         //sanity check (only used when there are no seperators between fret numbers)
+var maxFretDigits = maxFret.toString().length;
 
 
 function parse(tab_text, user_data)
@@ -113,7 +115,7 @@ function columnsToFrames(columns, numStrings)
 			current[s] = "";
 	}
 
-	//pushes an integer version of the current frame onto the frame list
+	//pushes the current frame onto the frame list, checks
 	function commit()
 	{
 		frames.push(current);
@@ -131,7 +133,7 @@ function columnsToFrames(columns, numStrings)
 		}
 	}
 
-	//compares the given column and the current column to determine if the current frame should be committed
+	//compares the given column and the current column to determine if the current frame should be committed (looks at incoming numbers vs seperators)
 	function isBreakPoint(column)
 	{
 		//quick test for empty current frame (skip white space, still waiting for numbers to accumulate)
@@ -140,10 +142,24 @@ function columnsToFrames(columns, numStrings)
 
 		for(var s = 0; s < numStrings; s++)
 		{
+			var digitIncoming = digitTest.test(column[s]); //check whether the next char for this string is a digit
+
+			//guard for strings of digits "1214121412"
+			//if maximum number of digits has been achieved, and more digits are incoming, then break the frame NOW
+			if((current[s].length === maxFretDigits) && digitIncoming)
+				return true;
+
+			//guard for strings of zeros "00000"
+			//if a zero was collected, and digits are still incomming, break now (no one write "01--02--03 etc... they write 1--2--3 ")
+			if((current[s] === "0") && digitIncoming)
+				return true;
+
+			//normal splitter, for digits vs. seperators (non-digits)
 			//if digits have been accumulated, and digits are still incoming, then this is NOT a breakpoint
-			if((current[s] !== "") && digitTest.test(column[s]))
+			if((current[s] !== "") && digitIncoming)
 				return false;
 		}
+		
 		return true;
 	}
 
