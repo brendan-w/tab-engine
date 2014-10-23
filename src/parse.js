@@ -67,7 +67,7 @@ function stringsToColumns(strings)
 	return columns;
 }
 
-
+//concatinates char columns into frames (one for every note change), with integer fret numbers
 function columnsToFrames(columns, numStrings)
 {
 	var frames = [];
@@ -106,6 +106,10 @@ function columnsToFrames(columns, numStrings)
 	//compares the given column and the current column to determine if the current frame should be committed
 	function isBreakPoint(column)
 	{
+		//quick test for empty current frame (frequent case)
+		if(current.join('').length === 0)
+			return false;
+
 		for(var s = 0; s < numStrings; s++)
 		{
 			//if digits have been accumulated, and digits are still incoming, then this is NOT a breakpoint
