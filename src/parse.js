@@ -1,26 +1,37 @@
 
 //regex
-var digitChars = /[0-9]/;
-var stringChars = /[-─]/;
-var sectionDividers = /\n\s*\n/;
+var digitTest = /[0-9]/;
+var stringTest = /(.*\|-.*)|(.*-\|.*)/;
+var sectionDivider = /\n\s*\n/;
 
 
 function parse(text)
 {
 	sections = textToSections(text);
 
+
 	sections.forEach(function(section) {
 		var strings = sectionToStrings(section);
 		var numStrings = strings.length;
-		var columns = stringsToColumns(strings);
-		var frames = columnsToFrames(columns, numStrings);
+
+		if(numStrings > 0)
+		{
+			//it's part of the tab
+			var columns = stringsToColumns(strings);
+			var frames = columnsToFrames(columns, numStrings);
+			console.log(frames);
+		}
+		else
+		{
+			//it's meta data
+		}
 	});
 
 }
 
 function textToSections(text)
 {
-	return text.split(sectionDividers);
+	return text.split(sectionDivider);
 }
 
 //creates an array of "strings" representing the guitar |-------strings-------| 
@@ -31,7 +42,7 @@ function sectionToStrings(section)
 
 	//filter for only lines with line chars
 	lines.forEach(function(line) {
-		if(stringChars.test(line))
+		if(stringTest.test(line))
 			strings.push(line);
 	});
 
@@ -46,7 +57,7 @@ function stringsToColumns(strings)
 	{
 		var column = [];
 		//loop through each string, and fill the column with chars
-		for(var s = 0; s < string.length; s++)
+		for(var s = 0; s < strings.length; s++)
 		{
 			column[s] = strings[s][c];
 		}
@@ -73,7 +84,7 @@ function columnsToFrames(columns, numStrings)
 	{
 		var newFrame = [];
 		current.forEach(function(v, s) {
-			newFrame[s] = 0;
+			newFrame[s] = -1;
 			if(v !== "")
 				newFrame[s] = parseInt(current[s]);
 		});
@@ -87,7 +98,7 @@ function columnsToFrames(columns, numStrings)
 		for(var s = 0; s < numStrings; s++)
 		{
 			var ch = column[s]; //char
-			if(digitChars.test(ch))
+			if(digitTest.test(ch))
 				current[s] += ch;
 		}
 	}
@@ -98,7 +109,7 @@ function columnsToFrames(columns, numStrings)
 		for(var s = 0; s < numStrings; s++)
 		{
 			//if digits have been accumulated, and digits are still incoming, then this is NOT a breakpoint
-			if((current[s] !== "") && digitChars.test(column))
+			if((current[s] !== "") && digitTest.test(column))
 				return false;
 		}
 		return true;
@@ -111,6 +122,8 @@ function columnsToFrames(columns, numStrings)
 			commit(); //commit what has accumulated in the current frame
 		add(column);
 	});
+
+	return frames;
 }
 
 function smallest(array, prop)
@@ -122,3 +135,5 @@ function smallest(array, prop)
 	});
 	return min;
 }
+
+module.exports = parse;
