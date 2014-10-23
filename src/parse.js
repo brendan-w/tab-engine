@@ -42,13 +42,29 @@ var artistTest = /artist|band|group|by/i; //keys found near the artist's name
 var tuningTest = /tuning/i;               //keys found near the tuning definition
 var maxFret = 36;                         //sanity check (only used when there are no seperators between fret numbers)
 var maxFretDigits = maxFret.toString().length;
+var keyTests = [
+	/C/i,
+	/C#|Db/i,
+	/D/i,
+	/D#|Eb/i,
+	/E/i,
+	/F/i,
+	/F#|Gb/i,
+	/G/i,
+	/G#|Ab/i,
+	/A/i,
+	/A#|Bb/i,
+	/B/i,
+];
 
 
 function parse(tab_text, user_data)
 {
-	sections = textToSections(tab_text);
+	//extract metadata
+	
+	//parse the tab
 
-	var sig = "";
+	var sections = textToSections(tab_text);
 
 	sections.forEach(function(strings) {
 		var numStrings = strings.length;
@@ -61,6 +77,7 @@ function parse(tab_text, user_data)
 		}
 	});
 
+	var sig = "";
 }
 
 //creates an array of sections (a section is an array of "strings" representing the guitar |-------strings-------|)
