@@ -5,9 +5,9 @@ var stringChars = /[-─]/;
 var sectionDividers = /\n\s*\n/;
 
 
-function parse(tab)
+function parse(text)
 {
-	sections = tabToSections(tab);
+	sections = textToSections(text);
 
 	sections.forEach(function(section) {
 		var strings = sectionToStrings(section);
@@ -18,9 +18,9 @@ function parse(tab)
 
 }
 
-function tabToSections(tab)
+function textToSections(text)
 {
-	return tab.split(sectionDividers);
+	return text.split(sectionDividers);
 }
 
 //creates an array of "strings" representing the guitar |-------strings-------| 
@@ -95,6 +95,12 @@ function columnsToFrames(columns, numStrings)
 	//compares the given column and the current column to determine if the current frame should be committed
 	function isBreakPoint(column)
 	{
+		for(var s = 0; s < numStrings; s++)
+		{
+			//if digits have been accumulated, and digits are still incoming, then this is NOT a breakpoint
+			if((current[s] !== "") && digitChars.test(column))
+				return false;
+		}
 		return true;
 	}
 
