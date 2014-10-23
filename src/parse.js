@@ -50,8 +50,7 @@ function parse(tab_text, user_data)
 
 	var sig = "";
 
-	sections.forEach(function(section) {
-		var strings = sectionToStrings(section);
+	sections.forEach(function(strings) {
 		var numStrings = strings.length;
 
 		if(numStrings > 0)
@@ -64,25 +63,30 @@ function parse(tab_text, user_data)
 
 }
 
+//creates an array of sections (a section is an array of "strings" representing the guitar |-------strings-------|)
 function textToSections(text)
 {
-	return text.split(sectionDivider);
-}
+	lines = text.split(/\n/);
+	sections = []; //list of sections (section = arrays of lines)
+	current = []; //line accumulator
 
-//creates an array of "strings" representing the guitar |-------strings-------| 
-function sectionToStrings(section)
-{
-	var lines = section.split(/\n/);
-	var strings = [];
-
-	//filter for only lines with line chars
 	lines.forEach(function(line) {
 		if(stringTest.test(line))
-			strings.push(line);
+		{
+			//this line represents a string
+			current.push(line);
+		}
+		else if(current.length > 0)
+		{
+			//this line ISN'T a string, so push the current buffer and wait for a new section of strings
+			sections.push(current);
+			current = [];
+		}
 	});
-
-	return strings;
+	
+	return sections;
 }
+
 
 //transposes an array of horizontal strings into an array of vertical arrays, each element being a single char
 function stringsToColumns(strings)
@@ -159,7 +163,7 @@ function columnsToFrames(columns, numStrings)
 			if((current[s] !== "") && digitIncoming)
 				return false;
 		}
-		
+
 		return true;
 	}
 
