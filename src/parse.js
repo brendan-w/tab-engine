@@ -24,8 +24,8 @@ module.exports = function(text, user_data) {
 	var frames = frame(parts.tabs, tuning);
 	var matrix = new Matrix(frames);
 
-	matrix.log()
-	
+	matrix.log();
+
 	console.log(matrix.toHex());
 };
 

@@ -54,12 +54,10 @@ var Matrix = function(frames) {
 		var frameA = frames[f];
 		var frameB = frames[f+1];
 
-		frameA.forEach(function(noteA) {
-			frameB.forEach(function(noteB) {
-				//add the interval to the matrix
-				add(noteA, noteB);
-			});
-		});
+		//k-graph for note intervals
+		for(var a = 0; a < frameA.length; a++)
+			for(var b = 0; b < frameB.length; b++)
+				add(frameA[a], frameB[b]);
 	}
 
 	this.distance = function(other) {

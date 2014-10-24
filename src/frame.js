@@ -64,7 +64,7 @@ function tuningFromStrings(strings)
 			keyTests.forEach(function(t, i) {
 				if(t.test(matches[0])) //assumes
 					tuning.push(i); //assumes values are listed from high freq to low freq
-			})
+			});
 		}
 	});
 
