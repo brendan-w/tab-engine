@@ -33,15 +33,17 @@ D000900D0000000ACC007FAE74747950FA700200004100CB440EEB007C190000B93C667900CD0737
 */
 
 
+var Matrix = require("./Matrix.js");
+
 //regex
 var digitTest = /[0-9]/;                  //check whether a digit is a character
 var stringTest = /(.*\|-.*)|(.*-\|.*)/;   //check whether a string represents a guitar string (in tab form)
 var sectionDivider = /\n\s*\n/;           //splitter for each row of tabs in the document
 var songTest = /name|song/i;              //keys found near the song name
 var artistTest = /artist|band|group|by/i; //keys found near the artist's name
-var tuningTest = /tuning/i;               //keys found near the tuning definition
 var maxFret = 36;                         //sanity check (only used when there are no seperators between fret numbers)
 var maxFretDigits = maxFret.toString().length;
+var linePrefixTest = /\s*[abcdefg#]+.*-/i;
 var keyTests = [
 	/C/i,
 	/C#|Db/i,
@@ -61,24 +63,73 @@ var keyTests = [
 function parse(tab_text, user_data)
 {
 	//extract metadata
+	var tuning = user_data.tuning || tuningFromMeta(tab_text);
+
+
 	
 	//parse the tab
-
+	var matrix = new Matrix();
 	var sections = textToSections(tab_text);
-
 	sections.forEach(function(strings) {
 		var numStrings = strings.length;
 
 		if(numStrings > 0)
 		{
+			//a tuning defined at the string level gets priority
+			tuning = tuningFromStrings(strings) || tuning;
+			//console.log(tuning);
 			var columns = stringsToColumns(strings);
 			var frames = columnsToFrames(columns, numStrings);
-			console.log(frames);
+			addFrames(frames, tuning, matrix);
+			//console.log(frames);
 		}
 	});
 
-	var sig = "";
+	matrix.log();
+	console.log(matrix.toHex());
 }
+
+function tuningFromMeta(text)
+{
+	var matches = text.match(/\n.*tuning.*\n/i);
+
+	var tuning = [4, 11, 7, 2, 9, 4]; //default eBGDAE tuning
+
+	if(matches !== null)
+	{
+		var line = matches[0];
+		if(!/standard/i.test(line))
+		{
+
+		}
+	}
+
+	return tuning;
+}
+
+function tuningFromStrings(strings)
+{
+	var tuning = [];
+
+	strings.forEach(function(string) {
+		var matches = string.match(linePrefixTest);
+
+		if(matches !== null)
+		{
+			keyTests.forEach(function(t, i) {
+				if(t.test(matches[0])) //assumes
+					tuning.push(i); //assumes values are listed from high freq to low freq
+			})
+		}
+	});
+
+	//only valid if every string has a key value
+	if(tuning.length !== strings.length)
+		tuning = null;
+	
+	return tuning;
+}
+
 
 //creates an array of sections (a section is an array of "strings" representing the guitar |-------strings-------|)
 function textToSections(text)
@@ -193,6 +244,40 @@ function columnsToFrames(columns, numStrings)
 	});
 
 	return frames;
+}
+
+function addFrames(frames, tuning, matrix)
+{
+	noteFrames = [];
+
+	function adjustFrame(frame)
+	{
+		var notes = [];
+		frame.forEach(function(note, s) {
+			if(note !== "")
+				notes.push(tuning[s] + parseInt(note));
+		});
+		return notes;
+	}
+
+	//preprocess the frames by ditching empty strings, and compensating for string tuning
+	frames.forEach(function(frame) {
+		noteFrames.push(adjustFrame(frame));
+	});
+
+	//add every interval to the matrix
+	for(var f = 0; f < noteFrames.length - 1; f++)
+	{
+		var a = noteFrames[f];
+		var b = noteFrames[f+1];
+
+
+		a.forEach(function(a_int) {
+			b.forEach(function(b_int) {
+				matrix.add(a_int, b_int);
+			});
+		});
+	}
 }
 
 function smallest(array, prop)
