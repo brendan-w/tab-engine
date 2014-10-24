@@ -8,7 +8,7 @@ var Matrix = function() {
 	var largest = 0;
 
 	this.add = function(a, b) {
-		a = a % 12;
+		a = a % 12; //octave data is irrelevant here
 		b = b % 12;
 		matrix[a][b]++;
 
