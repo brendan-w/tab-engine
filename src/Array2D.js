@@ -1,7 +1,6 @@
 //Written by Brendan Whitfield
 
 
-"use strict";
 
 
 /*
@@ -11,6 +10,7 @@
  * new Array2D(<x>, <y>;)
  */
 var Array2D = function() {
+	"use strict";
 
 	/*
 	 * Properties / Settings
