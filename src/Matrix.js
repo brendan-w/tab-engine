@@ -37,10 +37,11 @@ var Matrix = function(frames) {
 	var matrix = new ArrayND(12, 12); // 12x12
 	var largest = 0;
 
-	function add(a, b)
+	function add(a, b, c)
 	{
 		a = a % 12; //octave data is irrelevant here
 		b = b % 12;
+		//c = c % 12;
 		matrix[a][b]++;
 
 		//update the largest value
@@ -53,27 +54,28 @@ var Matrix = function(frames) {
 	{
 		var frameA = frames[f];
 		var frameB = frames[f+1];
+		//var frameC = frames[f+2];
 
 		//k-graph for note intervals
 		for(var a = 0; a < frameA.length; a++)
 			for(var b = 0; b < frameB.length; b++)
-				add(frameA[a], frameB[b]);
+				//for(var c = 0; c < frameC.length; c++)
+					add(frameA[a], frameB[b]);
 	}
 
 
-	this.distance = function(other) {
-
-	};
-
 	this.toHex = function() {
-		var hex = "";
+
+		var output = "";
 		matrix.forEach(function(v) {
 			//normalize
 			v = Math.round(v / largest * 255);
 			//print hex
-			hex += v.toString(16);
+			hex = v.toString(16);
+			hex = hex.length < 2 ? "0"+hex : hex;
+			output += hex;
 		});
-		return hex;
+		return output;
 	};
 };
 
