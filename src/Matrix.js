@@ -29,12 +29,12 @@ D000900D0000000ACC007FAE74747950FA700200004100CB440EEB007C190000B93C667900CD0737
 
 */
 
-var Array2D = require("./Array2D.js");
+var ArrayND = require("./ArrayND.js");
 
 var Matrix = function(frames) {
 
 	//init the matrix
-	var matrix = new Array2D(12, 12, 0); // 12x12, default = 0
+	var matrix = new ArrayND(12, 12); // 12x12
 	var largest = 0;
 
 	function add(a, b)
@@ -60,6 +60,7 @@ var Matrix = function(frames) {
 				add(frameA[a], frameB[b]);
 	}
 
+
 	this.distance = function(other) {
 
 	};
@@ -73,10 +74,6 @@ var Matrix = function(frames) {
 			hex += v.toString(16);
 		});
 		return hex;
-	};
-
-	this.log = function() {
-		matrix.log();
 	};
 };
 
