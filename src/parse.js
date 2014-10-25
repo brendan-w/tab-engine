@@ -22,9 +22,7 @@ module.exports = function(text, user_data) {
 
 
 	var frames = frame(parts.tabs, tuning);
-	var matrix = new Matrix(frames);
-
-	console.log(matrix.toHex());
+	return new Matrix(frames);
 };
 
 

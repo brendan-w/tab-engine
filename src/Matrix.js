@@ -34,49 +34,42 @@ var ArrayND = require("./ArrayND.js");
 var Matrix = function(frames) {
 
 	//init the matrix
-	var matrix = new ArrayND(12, 12); // 12x12
+	var m = new ArrayND(12, 12, 12); // 12x12
 	var largest = 0;
 
 	function add(a, b, c)
 	{
 		a = a % 12; //octave data is irrelevant here
 		b = b % 12;
-		//c = c % 12;
-		matrix[a][b]++;
+		c = c % 12;
+		m[a][b][c]++;
 
 		//update the largest value
-		if(matrix[a][b] > largest)
-			largest = matrix[a][b];
+		if(m[a][b][c] > largest)
+			largest = m[a][b][c];
 	}
 
-	//add every interval to the matrix
-	for(var f = 0; f < frames.length - 1; f++)
+	//add every interval to the m
+	for(var f = 0; f < frames.length - 2; f++)
 	{
-		var frameA = frames[f];
-		var frameB = frames[f+1];
-		//var frameC = frames[f+2];
+		var fA = frames[f];
+		var fB = frames[f+1];
+		var fC = frames[f+2];
 
 		//k-graph for note intervals
-		for(var a = 0; a < frameA.length; a++)
-			for(var b = 0; b < frameB.length; b++)
-				//for(var c = 0; c < frameC.length; c++)
-					add(frameA[a], frameB[b]);
+		for(var a = 0; a < fA.length; a++)
+			for(var b = 0; b < fB.length; b++)
+				for(var c = 0; c < fC.length; c++)
+					add(fA[a], fB[b], fC[c]);
 	}
 
-
-	this.toHex = function() {
-
-		var output = "";
-		matrix.forEach(function(v) {
-			//normalize
-			v = Math.round(v / largest * 255);
-			//print hex
-			hex = v.toString(16);
-			hex = hex.length < 2 ? "0"+hex : hex;
-			output += hex;
-		});
-		return output;
-	};
+	//the array is sparse, so delete unnecessary values
+	m.forEach(function(v, c, a) {
+		if(v === 0)
+			delete a[c[0]][c[1]][c[2]];
+		else
+			console.log(c, v);
+	});
 };
 
 
