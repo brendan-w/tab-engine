@@ -42,9 +42,6 @@ var Matrix = function(frames) {
 
 	function add(a, b, c)
 	{
-		a = a % 12; //octave data is irrelevant here
-		b = b % 12;
-		c = c % 12;
 		m[a][b][c]++;
 
 		//update the largest value
@@ -84,27 +81,27 @@ var Matrix = function(frames) {
 	*/
 };
 
-
+//Note: this operation is NOT commutative
 Matrix.prototype.compare = function(that) {
 	var m1 = this.getM();
 	var m2 = that.getM();
 
-	var t = 0;
+	var d = 0;
 
 	m1.forEach(function(v1, c, a) {
-		var v2 = m2.get(c);
-
-		var a = v1 !== 0;
-		var b = v2 !== 0;
-
-		if(a ? !b : b) //xor
+		//where there's data in M1, there must also be data in M2, else, increase the distance
+		if(v1 !== 0)
 		{
-			t++;
-			console.log(c, v1, v2);
+			var v2 = m2.get(c);
+			if(v2 === 0)
+			{
+				d++;
+				console.log(c, v1, v2);
+			}
 		}
 	});
 
-	console.log(t);
+	console.log(d);
 };
 
 
