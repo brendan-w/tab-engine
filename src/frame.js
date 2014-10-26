@@ -4,9 +4,6 @@
 Parsing engine for turning raw tabs into integer note sequences
 Returns a key-adjusted frame sequence from the tab-text
 
-For example:
-
-
 */
 
 
