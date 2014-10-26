@@ -36,6 +36,16 @@ function split(text)
 	tabs = [];       //array of tab sections
 	currentTab = []; //line accumulator for tab lines
 
+	function commitCurrent()
+	{
+		//this line ISN'T a string, so push the current tab buffer and wait for a new section of tab strings
+		if(currentTab.length >= minTabStrings)
+			tabs.push(currentTab);
+
+		currentTab = [];
+	}
+
+
 	lines = text.split(/\n/);
 
 	lines.forEach(function(line) {
@@ -46,16 +56,15 @@ function split(text)
 		}
 		else
 		{
-			//this line ISN'T a string, so push the current tab buffer and wait for a new section of tab strings
-			if(currentTab.length >= minTabStrings)
-				tabs.push(currentTab);
-
-			currentTab = [];
-
+			//commit the current
+			commitCurrent();
 			//push the extra data into their own array
 			meta.push(line);
 		}
 	});
+
+	//push whatever's left in the buffer
+	commitCurrent();
 	
 	return {
 		tabs: tabs,

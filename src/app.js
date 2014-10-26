@@ -6,7 +6,8 @@ var parse = require("./parse.js");
 tab1 = "";
 tab2 = "";
 
-fs.readFile("./tests/eruption.tab", "utf8", function(err, tab) {
+//fs.readFile("./tests/eruption2.tab", "utf8", function(err, tab) {
+fs.readFile("./tests/A.tab", "utf8", function(err, tab) {
 	if(err)
 	{
 		console.log(err);
@@ -14,7 +15,7 @@ fs.readFile("./tests/eruption.tab", "utf8", function(err, tab) {
 	else
 	{
 		tab1 = tab;
-		fs.readFile("./tests/technical_difficulties.tab", "utf8", function(err, tab) {
+		fs.readFile("./tests/B.tab", "utf8", function(err, tab) {
 			if(err)
 			{
 				console.log(err);
@@ -23,10 +24,9 @@ fs.readFile("./tests/eruption.tab", "utf8", function(err, tab) {
 			{
 				tab2 = tab;
 				m1 = parse(tab1, {});
-				console.log("=================");
 				m2 = parse(tab2, {});
+				m1.compare(m2);
 			}
 		});
 	}
 });
-

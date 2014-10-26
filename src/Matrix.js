@@ -37,6 +37,9 @@ var Matrix = function(frames) {
 	var m = new ArrayND(12, 12, 12); // 12x12
 	var largest = 0;
 
+	this.getM = function() { return m; };
+	this.getLargest = function() { return m; };
+
 	function add(a, b, c)
 	{
 		a = a % 12; //octave data is irrelevant here
@@ -64,12 +67,44 @@ var Matrix = function(frames) {
 	}
 
 	//the array is sparse, so delete unnecessary values
+	/*
 	m.forEach(function(v, c, a) {
 		if(v === 0)
 			delete a[c[0]][c[1]][c[2]];
 		else
 			console.log(c, v);
 	});
+	*/
+
+	/*
+	m.forEach(function(v, c, a) {
+		if(v !== 0)
+			console.log(c, v);
+	});
+	*/
+};
+
+
+Matrix.prototype.compare = function(that) {
+	var m1 = this.getM();
+	var m2 = that.getM();
+
+	var t = 0;
+
+	m1.forEach(function(v1, c, a) {
+		var v2 = m2.get(c);
+
+		var a = v1 !== 0;
+		var b = v2 !== 0;
+
+		if(a ? !b : b) //xor
+		{
+			t++;
+			console.log(c, v1, v2);
+		}
+	});
+
+	console.log(t);
 };
 
 
