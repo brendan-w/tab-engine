@@ -37,15 +37,18 @@ var Matrix = function(frames) {
 	var largest = 0;
 
 	this.getM = function() { return m; };
-	this.getLargest = function() { return m; };
+	this.getLargest = function() { return largest; };
 
 	function add(a, b, c)
 	{
-		m[a][b][c]++;
+		coord = [a,b,c];
+		var v = m.get(coord);
+		v++;
+		m.set(coord, v);
 
 		//update the largest value
-		if(m[a][b][c] > largest)
-			largest = m[a][b][c];
+		if(v > largest)
+			largest = v;
 	}
 
 	//add every interval to the m

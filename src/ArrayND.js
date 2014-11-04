@@ -12,7 +12,7 @@
  * new ArrayND(<ArrayND>);
  * new ArrayND(<x>, <y>, <z>, <w>, etc..);
  */
-var ArrayND = function() {
+var SparseArrayND = function() {
 	"use strict";
 
 	var root = this;
@@ -24,10 +24,14 @@ var ArrayND = function() {
 	{
 		if(d === root.dimensions - 1)
 		{
+			return;
+			//dont fill with data
+			/*
 			for(var i = 0; i <= root.end[d]; i++)
 			{
 				current[i] = root.default;
 			}
+			*/
 		}
 		else if(d < root.dimensions)
 		{
@@ -76,35 +80,35 @@ var ArrayND = function() {
 	}
 };
 
-ArrayND.prototype.__assert__ = {
+SparseArrayND.prototype.__assert__ = {
 
 	validCoordinate : function(coordinate) {
 		if(!(coordinate instanceof Array))
 		{
-			throw "ArrayND: Invalid coordinate type: " + (typeof coordinate);
+			throw "SparseArrayND: Invalid coordinate type: " + (typeof coordinate);
 		}
 
 		if(coordinate.length !== this.dimensions)
 		{
-			throw "ArrayND: Invalid number of dimensions in coordinate: [" + coordinate.join(", ") + "]";
+			throw "SparseArrayND: Invalid number of dimensions in coordinate: [" + coordinate.join(", ") + "]";
 		}
 
 		for(var d = 0; d < coordinate.length; d++)
 		{
 			if(coordinate[d] < 0)
-				throw "ArrayND: Invalid coordinate. Index less than zero: [" + coordinate.join(", ") + "]";
+				throw "SparseArrayND: Invalid coordinate. Index less than zero: [" + coordinate.join(", ") + "]";
 			if(coordinate[d] > this.end[d])
-				throw "ArrayND: Invalid coordinate. Index greater than length: [" + coordinate.join(", ") + "]";
+				throw "SparseArrayND: Invalid coordinate. Index greater than length: [" + coordinate.join(", ") + "]";
 		}
 	},
 
 	isFunction : function(func) {
 		if(!(func instanceof Function))
-			throw "ArrayND: Invalid callback type: " + (typeof func);
+			throw "SparseArrayND: Invalid callback type: " + (typeof func);
 	},
 };
 
-ArrayND.prototype.get = function(coordinate) {
+SparseArrayND.prototype.get = function(coordinate) {
 	this.__assert__.validCoordinate.call(this, coordinate);
 
 	var root = this;
@@ -114,10 +118,15 @@ ArrayND.prototype.get = function(coordinate) {
 	for(var d = 0; d < last; d++)
 		root = root[coordinate[d]];
 
-	return root[coordinate[last]];
+	var e = root[coordinate[last]];
+	if(e != undefined)
+		return e;
+	else
+		return this.default;
+		
 };
 
-ArrayND.prototype.set =function(coordinate, value) {
+SparseArrayND.prototype.set =function(coordinate, value) {
 	this.__assert__.validCoordinate.call(this, coordinate);
 
 	var root = this;
@@ -134,9 +143,9 @@ ArrayND.prototype.set =function(coordinate, value) {
 /*
 	start = [] coordinates
 	end = [] coordinates
-	callback = function(value, coordinates, ArrayND)
+	callback = function(value, coordinates, SparseArrayND)
 */
-ArrayND.prototype.forRange = function(start, end, callback) {
+SparseArrayND.prototype.forRange = function(start, end, callback) {
 	this.__assert__.validCoordinate.call(this, start);
 	this.__assert__.validCoordinate.call(this, end);
 	this.__assert__.isFunction.call(this, callback);
@@ -151,7 +160,7 @@ ArrayND.prototype.forRange = function(start, end, callback) {
 			for(var i = start[d]; i <= end[d]; i++)
 			{
 				coordinates[d] = i;
-				callback(current[i], coordinates, root); //reached a value
+				callback(root.get(coordinates), coordinates, root); //reached a value
 			}
 		}
 		else if(d < root.dimensions)
@@ -167,11 +176,11 @@ ArrayND.prototype.forRange = function(start, end, callback) {
 	iterate(0, root);
 };
 
-ArrayND.prototype.forEach = function(callback) {
+SparseArrayND.prototype.forEach = function(callback) {
 	this.forRange(this.start, this.end, callback);
 };
 
-ArrayND.prototype.fillRange = function(start, end, value) {
+SparseArrayND.prototype.fillRange = function(start, end, value) {
 
 	var root = this;
 	value = !value ? this.default : value;
@@ -181,8 +190,8 @@ ArrayND.prototype.fillRange = function(start, end, value) {
 	});
 };
 
-ArrayND.prototype.fill = function(value) {
+SparseArrayND.prototype.fill = function(value) {
 	this.fillRange(this.start, this.end, value);
 };
 
-module.exports = ArrayND;
+module.exports = SparseArrayND;
