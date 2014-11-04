@@ -1,6 +1,6 @@
 
 var fs = require("fs");
-var parse = require("./parse.js");
+var parse = require("./parser.js");
 
 tab1 = fs.readFileSync("./tests/eruption2.tab", "utf8");
 tab2 = fs.readFileSync("./tests/eruption.tab", "utf8");

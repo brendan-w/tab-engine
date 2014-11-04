@@ -1,13 +1,8 @@
 
 
-var frame = require("./frame.js");
+var frame = require("./framer.js");
 var Matrix = require("./Matrix.js");
-
-//constants
-var stringTest    = /(.*\|-.*)|(.*-\|.*)/;   //check whether a string represents a guitar string (in tab form)
-var songTest      = /name|song/i;            //keys found near the song name
-var artistTest    = /artist|band|group|by/i; //keys found near the artist's name
-var minTabStrings = 3;                       //minimum number of string to be considered valid
+var config = require("./config_parser.js");
 
 
 
@@ -18,7 +13,7 @@ module.exports = function(text, user_data) {
 	var parts = split(text);
 
 	//parse the meta data
-	var tuning = tuningFromMeta(parts.meta) || [4, 11, 7, 2, 9, 4];
+	var tuning = tuningFromMeta(parts.meta) || config.tuning['standard'];
 
 
 	var frames = frame(parts.tabs, tuning);
@@ -39,7 +34,7 @@ function split(text)
 	function commitCurrent()
 	{
 		//this line ISN'T a string, so push the current tab buffer and wait for a new section of tab strings
-		if(currentTab.length >= minTabStrings)
+		if(currentTab.length >= config.minTabStrings)
 			tabs.push(currentTab);
 
 		currentTab = [];
@@ -49,7 +44,7 @@ function split(text)
 	lines = text.split(/\n/);
 
 	lines.forEach(function(line) {
-		if(stringTest.test(line))
+		if(config.stringTest.test(line))
 		{
 			//this line represents a string
 			currentTab.push(line);

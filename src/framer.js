@@ -6,30 +6,11 @@ Returns a key-adjusted frame sequence from the tab-text
 
 */
 
-
-//regex
-var digitTest = /[0-9]/;                  //check whether a digit is a character
-var maxFret = 36;                         //sanity check (only used when there are no seperators between fret numbers)
-var maxFretDigits = maxFret.toString().length;
-var linePrefixTest = /\s*[abcdefg#]+.*-/i;
-var keyTests = [
-	/C/i,
-	/C#|Db/i,
-	/D/i,
-	/D#|Eb/i,
-	/E/i,
-	/F/i,
-	/F#|Gb/i,
-	/G/i,
-	/G#|Ab/i,
-	/A/i,
-	/A#|Bb/i,
-	/B/i,
-];
+var config = require("./config_parser.js");
 
 
 //main function
-module.exports = function(tabs, tuning) {
+module.exports = function(tabs, globalTuning) {
 	var noteFrames = [];
 
 	tabs.forEach(function(strings) {
@@ -38,7 +19,7 @@ module.exports = function(tabs, tuning) {
 		if(numStrings > 0)
 		{
 			//a tuning defined at the string level gets priority
-			var localTuning = tuningFromStrings(strings) || tuning;
+			var localTuning = tuningFromStrings(strings) || globalTuning;
 			var columns = stringsToColumns(strings);
 			var frames = columnsToFrames(columns, numStrings);
 			adjustFrames(frames, localTuning, noteFrames);
@@ -54,11 +35,11 @@ function tuningFromStrings(strings)
 	var tuning = [];
 
 	strings.forEach(function(string) {
-		var matches = string.match(linePrefixTest);
+		var matches = string.match(config.linePrefixTest);
 
 		if(matches !== null)
 		{
-			keyTests.forEach(function(t, i) {
+			config.keyTests.forEach(function(t, i) {
 				if(t.test(matches[0])) //assumes
 					tuning.push(i); //assumes values are listed from high freq to low freq
 			});
@@ -117,7 +98,7 @@ function columnsToFrames(columns, numStrings)
 		for(var s = 0; s < numStrings; s++)
 		{
 			var ch = column[s]; //char
-			if(digitTest.test(ch))
+			if(config.digitTest.test(ch))
 				current[s] += ch;
 		}
 	}
@@ -131,11 +112,11 @@ function columnsToFrames(columns, numStrings)
 
 		for(var s = 0; s < numStrings; s++)
 		{
-			var digitIncoming = digitTest.test(column[s]); //check whether the next char for this string is a digit
+			var digitIncoming = config.digitTest.test(column[s]); //check whether the next char for this string is a digit
 
 			//guard for strings of digits "1214121412"
 			//if maximum number of digits has been achieved, and more digits are incoming, then break the frame NOW
-			if((current[s].length === maxFretDigits) && digitIncoming)
+			if((current[s].length === config.maxFretDigits) && digitIncoming)
 				return true;
 
 			//guard for strings of zeros "00000"
