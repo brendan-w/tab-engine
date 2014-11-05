@@ -119,6 +119,8 @@ SparseArrayND.prototype.get = function(coordinate) {
 		root = root[coordinate[d]];
 
 	var e = root[coordinate[last]];
+
+	//if there this coordinate was not defined, return the default (virtual value)
 	if(e != undefined)
 		return e;
 	else
@@ -137,7 +139,11 @@ SparseArrayND.prototype.set =function(coordinate, value) {
 	for(var d = 0; d < last; d++)
 		root = root[coordinate[d]];
 
-	root[coordinate[last]] = value;
+	//all default elements don't exist
+	if(value == this.default)
+		delete root[coordinate[last]];
+	else
+		root[coordinate[last]] = value;
 };
 
 /*

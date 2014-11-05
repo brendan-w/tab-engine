@@ -25,7 +25,7 @@ module.exports = function(tabs, globalTuning) {
 			adjustFrames(frames, localTuning, noteFrames);
 		}
 	});
-
+	
 	return noteFrames;
 };
 

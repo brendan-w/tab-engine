@@ -28,7 +28,7 @@ etc... for more dimensions
 
 */
 
-var ArrayND = require("./ArrayND.js");
+var ArrayND = require("./SparseArrayND.js");
 
 var Matrix = function(frames) {
 
@@ -64,29 +64,12 @@ var Matrix = function(frames) {
 				for(var c = 0; c < fC.length; c++)
 					add(fA[a], fB[b], fC[c]);
 	}
-
-	//the array is sparse, so delete unnecessary values
-	/*
-	m.forEach(function(v, c, a) {
-		if(v === 0)
-			delete a[c[0]][c[1]][c[2]];
-		else
-			console.log(c, v);
-	});
-	*/
-
-	/*
-	m.forEach(function(v, c, a) {
-		if(v !== 0)
-			console.log(c, v);
-	});
-	*/
 };
 
 //Note: this operation is NOT commutative
 Matrix.prototype.compare = function(that) {
-	var m1 = this.getM();
-	var m2 = that.getM();
+	var m1 = this.getM(); //this matrix (seed from user)
+	var m2 = that.getM(); //the submitted matrix (from the DB)
 
 	var d = 0;
 
