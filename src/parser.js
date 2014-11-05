@@ -13,7 +13,7 @@ module.exports = function(text, user_data) {
 	var parts = split(text);
 
 	//parse the meta data
-	var tuning = tuningFromMeta(parts.meta) || config.tuning['standard'];
+	var tuning = tuningFromMeta(parts.meta) || config.tuning.standard;
 
 
 	var frames = frame(parts.tabs, tuning);

@@ -25,9 +25,14 @@ module.exports.keyTests       = [
 
 //tunings are stored from highest freq to lowest
 module.exports.tuning = {
-	//            e  B   G  D  A  E
-	"standard" : [4, 11, 7, 2, 9, 4],
-
-	
+	"standard"    : [4, 11, 7, 2, 9, 4],
+	"dropD"       : [4, 11, 7, 2, 9, 2],
+	"doubleDropD" : [2, 11, 7, 2, 9, 2],
+	"modalD"      : [2, 9,  7, 2, 9, 2],
 };
+//                                  high            low
+
+
+
+
 

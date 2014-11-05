@@ -38,7 +38,7 @@ var SparseArrayND = function() {
 			for(var i = 0; i <= root.end[d]; i++)
 			{
 				current[i] = {}; //create the next level
-				build(d+1, current[i]) //fill the next level
+				build(d+1, current[i]); //fill the next level
 			}
 		}
 	}
@@ -121,7 +121,7 @@ SparseArrayND.prototype.get = function(coordinate) {
 	var e = root[coordinate[last]];
 
 	//if there this coordinate was not defined, return the default (virtual value)
-	if(e != undefined)
+	if(e !== undefined)
 		return e;
 	else
 		return this.default;
@@ -174,7 +174,7 @@ SparseArrayND.prototype.forRange = function(start, end, callback) {
 			for(var i = start[d]; i <= end[d]; i++)
 			{
 				coordinates[d] = i;
-				iterate(d+1, current[i]) //recurse to the next level
+				iterate(d+1, current[i]); //recurse to the next level
 			}
 		}
 	}

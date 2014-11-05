@@ -71,6 +71,10 @@ Matrix.prototype.compare = function(that) {
 	var m1 = this.getM(); //this matrix (seed from user)
 	var m2 = that.getM(); //the submitted matrix (from the DB)
 
+	//the distance between this, and the given matrix
+	//0 = all patterns in this matrix are present in the given matrix
+	//each discrepency increments the distance by 1
+	//as of now, the relative magnitudes are not considered
 	var d = 0;
 
 	m1.forEach(function(v1, c, a) {
@@ -86,7 +90,7 @@ Matrix.prototype.compare = function(that) {
 		}
 	});
 
-	console.log(d);
+	return d;
 };
 
 

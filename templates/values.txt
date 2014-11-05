@@ -150,3 +150,35 @@
 <option value="Spanish Gypsy">Spanish Gypsy</option>
 <option value="Super Locrian">Super Locrian</option>
 <option value="Moorish Phrygian">Moorish Phrygian</option>
+
+
+
+
+
+
+
+
+<option selected value="0">Standard - E-A-D-G-B-E</option>
+<option value="1">Drop D - D-A-D-G-B-E</option>
+<option value="2">Double Drop D - D-A-D-G-B-D</option>
+<option value="3">D Modal Tuning - D-A-D-G-A-D</option>
+<option value="4">Dropped C - C-G-C-F-A-D</option>
+<option value="5">Dropped B - B-F#-B-E-G#-C#</option>
+<option value="6">Dropped A - A-E-A-D-F#-A</option>
+<option value="7">A Tuning - A-D-G-C-E-A</option>
+<option value="8">Eb Tuning - Eb-Ab-Db-Gb-Bb-Eb</option>
+<option value="9">D Tuning - D-G-C-F-A-D</option>
+<option value="10">Db Tuning - Db-Gb-Cb-Fb-Ab-Db</option>
+<option value="11">C Tuning - C-F-Bb-Eb-G-C</option>
+<option value="12">B Standard Tuning - B-E-A-D-F#-B</option>
+<option value="13">Bb Tuning - Eb-Ab-Db-Gb-Bb-Eb</option>
+<option value="14">G Tuning - Eb-Ab-Db-Gb-Bb-Eb</option>
+<option value="15">Open A Tuning - E-A-E-A-C#-E</option>
+<option value="16">Open C Tuning - C-G-C-G-C-E</option>
+<option value="17">Open D Tuning - D-A-D-F#-A-D</option>
+<option value="18">Open Db Tuning - Db-Ab-Db-F-Ab-Db</option>
+<option value="19">Open E Tuning - E-B-E-G#-B-E</option>
+<option value="20">Open F Tuning - F-A-C-F-C-F</option>
+<option value="21">Open G Tuning - D-G-D-G-B-D</option>
+<option value="22">6-string Bass - B-E-A-D-G-C</option>
+<option value="23">B-E-A-D-G-B</option></select>

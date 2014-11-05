@@ -12,4 +12,4 @@ tab2 = fs.readFileSync("./tests/B.tab", "utf8");
 m1 = parse(tab1, {});
 m2 = parse(tab2, {});
 
-m1.compare(m2);
+console.log(m1.compare(m2));
