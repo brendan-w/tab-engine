@@ -2,7 +2,7 @@
 
 var frame = require("./framer.js");
 var Matrix = require("./Matrix.js");
-var config = require("./config_parser.js");
+var config = require("./config.js");
 
 
 

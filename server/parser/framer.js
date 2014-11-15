@@ -6,7 +6,7 @@ Returns a key-adjusted frame sequence from the tab-text
 
 */
 
-var config = require("./config_parser.js");
+var config = require("./config.js");
 
 
 //main function

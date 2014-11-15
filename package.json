@@ -2,9 +2,9 @@
   "name": "tab-engine",
   "version": "1.0.0",
   "description": "Parsing and searching engine for common guitar tablatures",
-  "main": "./src/app.js",
+  "main": "./server/index.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node ./server/index.js",
     "pretest": "jshint ./src",
     "test": "echo \"Test complete\""
   },
