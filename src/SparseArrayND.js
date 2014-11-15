@@ -22,18 +22,7 @@ var SparseArrayND = function() {
 
 	function build(d, current)
 	{
-		if(d === root.dimensions - 1)
-		{
-			return;
-			//dont fill with data
-			/*
-			for(var i = 0; i <= root.end[d]; i++)
-			{
-				current[i] = root.default;
-			}
-			*/
-		}
-		else if(d < root.dimensions)
+		if(d < root.dimensions)
 		{
 			for(var i = 0; i <= root.end[d]; i++)
 			{
