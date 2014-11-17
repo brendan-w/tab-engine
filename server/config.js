@@ -36,21 +36,23 @@ function REDISCLOUD_URL()
 */
 var envs = {
 	development: {
-		static_dir:    "./static/",
-		views_dir:     "./views/",
+		static_dir:    path.resolve(__dirname + "/../static/"),
+		views_dir:     path.resolve(__dirname + "/../views/"),
+		favicon:       path.resolve(__dirname + "/../static/favicon.png"),
 		http_port:     3000,
 		http_base_url: "http://localhost:3000",
 		redis_url_obj: REDISLOCAL_URL,
-		mongo_url:     "mongodb://localhost/TabEngine"
+		mongo_url:     "mongodb://localhost/TabEngine",
 	},
 
 	production: {
-		static_dir:    "./static/",
-		views_dir:     "./views/",
+		static_dir:    path.resolve(__dirname + "/../static/"),
+		views_dir:     path.resolve(__dirname + "/../views/"),
+		favicon:       path.resolve(__dirname + "/../static/favicon.png"),
 		http_port:     process.env.PORT || process.env.NODE_PORT || 3000,
 		http_base_url: "http://appName.herokuapp.com",
 		redis_url_obj: REDISCLOUD_URL() || REDISLOCAL_URL,
-		mongo_url:     process.env.MONGOHQ_URL || "mongodb://localhost/TabEngine".
+		mongo_url:     process.env.MONGOHQ_URL || "mongodb://localhost/TabEngine",
 	},
 };
 
