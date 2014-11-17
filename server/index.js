@@ -1,7 +1,5 @@
 //entry point
 
-var config = require("./config.js");
-
 var url             = require('url');
 var path            = require('path');
 var body_parser     = require('body-parser');
@@ -12,6 +10,10 @@ var express         = require('express');
 var express_session = require('express-session');
 var mongoose        = require('mongoose');
 var RedisStore      = require('connect-redis')(express_session);
+
+var config          = require("./config.js");
+var router          = require('./router.js');
+
 
 //console.log(config);
 function handleError(err) { if(err) console.log(err); }
@@ -33,6 +35,8 @@ app.use(express_session({
     resave: true,
     saveUninitialized: true,
 }));
+
+router(app);
 
 var server = app.listen(config.http_port, handleError);
 

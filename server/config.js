@@ -25,7 +25,7 @@ function REDISCLOUD_URL()
 			pass: parsedURL.auth.split(":")[1]
 		};
 	}
-	return undefined; //for clearity, nothing more
+	return undefined; //for clarity, nothing more
 }
 
 
