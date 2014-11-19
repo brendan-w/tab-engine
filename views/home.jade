@@ -1,0 +1,23 @@
+extends ./base.jade
+
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/home.css')
+	script(type='text/javascript', src='/static/js/home.js')
+
+
+block nav
+	a(href='/') Home
+	a(href='/login') Login
+	a(href='/signup') Signup
+
+block body
+	section
+		pre.
+			e ┌┬─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┬─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┬┐
+			B ├┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼┤
+			G ├┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼┤
+			D ├┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼┤
+			A ├┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┼┤
+			E └┴─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┴─<input>──<input>──<input>──<input>──<input>──<input>──<input>──<input>─┴┘
+			
+		button Search

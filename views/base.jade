@@ -1,9 +1,37 @@
-html(lang="en")
-  head
-    meta(charset="utf-8")
-    title DomoMaker
-    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
-    link(rel="shortcut icon", href="/assets/img/favicon.png")
-    block style
-  block body
-  block scripts
+html
+	head
+		//META 
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width')
+		meta(name='author', content='')
+		meta(name='description', content='')
+		meta(name='keywords', content='')
+		title Harmonize
+		//CSS 
+		link(rel='stylesheet', type='text/css', href='/static/css/reset.css')
+		link(rel='stylesheet', type='text/css', href='/static/css/style.css')
+		//JS 
+		script(type='text/javascript', src='/static/js/main.js')
+		//if lt IE 9
+			script(src='/static/js/html5shiv.js')
+
+		block head
+
+	body
+		header
+			h1
+				pre.
+					┌┬───
+					├┼───
+					└┴───
+
+				a.pretty(href='/') HARMONIZE
+				pre.
+					─8─5─────────────────────┬┐
+					─────8─5───────5─8───────┼┤
+					─────────8─7─5─────5─7─8─┴┘
+
+			nav
+				block nav
+		#main
+			block body

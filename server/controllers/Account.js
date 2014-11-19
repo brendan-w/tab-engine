@@ -3,6 +3,11 @@ var models = require('../models');
 
 var Account = models.Account;
 
+module.exports.homePage = function(req, res)
+{
+    res.render('home');
+};
+
 module.exports.loginPage = function(req, res)
 {
     res.render('login');
