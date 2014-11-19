@@ -15,7 +15,7 @@ module.exports.logged_in = function(req, res, next)
 module.exports.logged_out = function(req, res, next)
 {
 	if(req.session.account)
-		return res.redirect('/maker');   
+		return res.redirect('/account');   
 	next();
 }
 

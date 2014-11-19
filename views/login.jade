@@ -1,17 +1,21 @@
 extends ./base.jade
 
+block append head
+	script(type='text/javascript', src='/static/js/login_signup.js')
+	link(rel='stylesheet', type='text/css', href='/static/css/login_signup.css')
+
 block nav
 	a(href='/') Home
 	a.active(href='/login') Login
 	a(href='/signup') Signup
 
 block body
-	form#login
+	form#login(action="/login", method="POST")
 		h2 Login
 		.problem
-		input(type='text', placeholder='Username')
-		input(type='password', placeholder='Password')
-		input(type='submit', value='Login')
+		input(type='text', name='username', placeholder='Username')
+		input(type='password', name='password', placeholder='Password')
+		button Login
 		div
 			| Don't have an account? 
 			a(href='/signup') Sign up!

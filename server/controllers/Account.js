@@ -18,6 +18,11 @@ module.exports.signupPage = function(req, res)
     res.render('signup');
 };
 
+module.exports.accountPage = function(req, res)
+{
+    res.render('account');
+};
+
 module.exports.logout = function(req, res)
 {
     req.session.destroy();
@@ -28,7 +33,7 @@ module.exports.login = function(req, res)
 {
 
     var username = req.body.username;
-    var password = req.body.pass;
+    var password = req.body.password;
 
     if(!username || !password)
     {
@@ -44,7 +49,7 @@ module.exports.login = function(req, res)
         
         req.session.account = account.toAPI();
         
-        res.json({redirect: '/maker'});
+        res.json({redirect: '/account'});
     });
 
 };
@@ -52,21 +57,26 @@ module.exports.login = function(req, res)
 module.exports.signup = function(req, res)
 {
 
-    if(!req.body.username || !req.body.pass || !req.body.pass2)
+    var username = req.body.username;
+    var password1 = req.body.password1;
+    var password2 = req.body.password2;
+
+
+    if(!username || !password1 || !password2)
     {
         return res.status(400).json({error: "RAWR! All fields are required"});
     }
 
-    if(req.body.pass !== req.body.pass2)
+    if(password1 !== password2)
     {
         return res.status(400).json({error: "RAWR! Passwords do not match"});
     }
 	
-	Account.AccountModel.generateHash(req.body.pass, function(salt, hash)
+	Account.AccountModel.generateHash(password1, function(salt, hash)
     {
 
 		var accountData = {
-			username: req.body.username,
+			username: username,
 			salt: salt,
 			password: hash
 		};
@@ -83,7 +93,7 @@ module.exports.signup = function(req, res)
 
             req.session.account = newAccount.toAPI();
             
-			res.json({redirect: '/maker'});
+			res.json({redirect: '/account'});
 		});
 	});
 };
