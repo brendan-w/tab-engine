@@ -41,3 +41,4 @@ router(app);
 var server = app.listen(config.http_port, handleError);
 
 console.log("Done");
+console.log(config);
