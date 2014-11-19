@@ -5,7 +5,10 @@ var Account = models.Account;
 
 module.exports.homePage = function(req, res)
 {
-    res.render('home');
+    var viewData = {
+        logged_in: req.session.account !== undefined
+    };
+    res.render('home', viewData);
 };
 
 module.exports.loginPage = function(req, res)

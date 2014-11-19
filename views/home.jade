@@ -6,8 +6,12 @@ block append head
 
 block nav
 	a.active(href='/') Home
-	a(href='/login') Login
-	a(href='/signup') Signup
+	if(logged_in)
+		a(href='/account') Account
+		a(href='/logout') Logout
+	else
+		a(href='/login') Login
+		a(href='/signup') Signup
 
 block body
 	section
