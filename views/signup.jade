@@ -3,7 +3,7 @@ extends ./base.jade
 block nav
 	a(href='/') Home
 	a(href='/login') Login
-	a(href='/signup') Signup
+	a.active(href='/signup') Signup
 
 block body
 	form#login
@@ -11,6 +11,7 @@ block body
 		.problem
 		input(type='text', placeholder='Username')
 		input(type='password', placeholder='Password')
+		input(type='password', placeholder='Retype Password')
 		input(type='submit', value='Login')
 		div
 			| Arleady have an account? 
