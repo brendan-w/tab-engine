@@ -10,3 +10,12 @@ block nav
 
 block body
 	h1 #{username}
+
+	a(href='/upload') Upload New Tab
+
+	ul
+		if !tabs || tabs.length === 0
+			li No Tabs
+		else
+			each tab in tabs
+				li #{tab.name}

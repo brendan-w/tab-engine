@@ -5,11 +5,6 @@ body
 	font-family: Arial, sans-serif;
 }
 
-pre
-{
-	font-family: "Courier New", monospace;
-}
-
 h1 { font-size: 30pt; }
 h2 { font-size: 20pt; }
 
@@ -30,9 +25,15 @@ a.active
 	color:red;
 }
 
+.shadow
+{
+	box-shadow: 0px 8px 15px rgba(0,0,0,0.5);
+}
 
-
-
+.mono, pre
+{
+	font-family: "Courier New", monospace;
+}
 
 
 

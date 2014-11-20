@@ -1,13 +1,16 @@
 
 var models = require('../models');
 
+//models
 var Account = models.Account;
+var Tab     = models.Tab;
+
+
 
 module.exports.homePage = function(req, res) {
-	var viewData = {
+	res.render('home', {
 		logged_in: req.session.account !== undefined
-	};
-	res.render('home', viewData);
+	});
 };
 
 module.exports.loginPage = function(req, res) {
@@ -19,10 +22,21 @@ module.exports.signupPage = function(req, res) {
 };
 
 module.exports.accountPage = function(req, res) {
-	var viewData = {
-		username: req.session.account.username
-	};
-	res.render('account', viewData);
+	
+	Tab.TabModel.findByOwner(req.session.account._id, function(err, docs) {
+
+		if(err)
+		{
+			console.log(err);
+			return res.status(400).json({error:'An error occurred'}); 
+		}
+
+		res.render('account', {
+			username: req.session.account.username,
+			tabs: docs,
+		});
+	});
+
 };
 
 module.exports.logout = function(req, res) {
@@ -53,7 +67,7 @@ module.exports.login = function(req, res) {
 
 module.exports.signup = function(req, res) {
 
-	var username = req.body.username;
+	var username  = req.body.username;
 	var password1 = req.body.password1;
 	var password2 = req.body.password2;
 
@@ -69,6 +83,7 @@ module.exports.signup = function(req, res) {
 	}
 	
 	Account.AccountModel.generateHash(password1, function(salt, hash) {
+		
 		var newAccount = new Account.AccountModel({
 			username: username,
 			salt: salt,

@@ -10,12 +10,12 @@ block nav
 	a.active(href='/signup') Signup
 
 block body
-	form#signup(action="/signup", method="POST")
+	form#signup.shadow(action="/signup", method="POST")
 		h2 Signup
 		.problem
-		input(type='text', name='username', placeholder='Username')
-		input(type='password', name='password1', placeholder='Password')
-		input(type='password', name='password2', placeholder='Retype Password')
+		input(type='text', name='username', placeholder='Username' tabindex='1' autofocus)
+		input(type='password', name='password1', placeholder='Password' tabindex='2')
+		input(type='password', name='password2', placeholder='Retype Password' tabindex='3')
 		button Signup
 		div
 			| Arleady have an account? 

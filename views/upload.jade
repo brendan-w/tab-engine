@@ -1,0 +1,19 @@
+extends ./base.jade
+
+block append head
+	script(type='text/javascript', src='/static/js/upload.js')
+	link(rel='stylesheet', type='text/css', href='/static/css/upload.css')
+
+block nav
+	a(href='/') Home
+	a(href='/account') Account
+	a(href='/logout') Logout
+
+block body
+	form#tab.shadow(action="/upload", method="POST")
+		h2 Upload Tab
+		.problem
+		input(type='text', name='name', placeholder='Song Name' tabindex='1' autofocus)
+		input(type='text', name='artist', placeholder='Artist' tabindex='2')
+		textarea.mono(name='tab' placeholder='Tab' tabindex='3')
+		button Upload

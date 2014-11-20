@@ -45,8 +45,9 @@ var TabSchema = new mongoose.Schema({
 
 TabSchema.methods.toAPI = function() {
     return {
+        tab: this.tab,
         name: this.name,
-        age: this.age
+        artist: this.artist,
     };
 };
 
@@ -56,7 +57,7 @@ TabSchema.statics.findByOwner = function(ownerId, callback) {
         owner: mongoose.Types.ObjectId(ownerId)
     };
 
-    return TabModel.find(search).select("name age").exec(callback);
+    return TabModel.find(search).select("name artist tab").exec(callback);
 };
 
 

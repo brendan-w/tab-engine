@@ -10,11 +10,11 @@ block nav
 	a(href='/signup') Signup
 
 block body
-	form#login(action="/login", method="POST")
+	form#login.shadow(action="/login", method="POST")
 		h2 Login
 		.problem
-		input(type='text', name='username', placeholder='Username')
-		input(type='password', name='password', placeholder='Password')
+		input(type='text', name='username', placeholder='Username' tabindex='1' autofocus)
+		input(type='password', name='password', placeholder='Password' tabindex='2')
 		button Login
 		div
 			| Don't have an account? 
