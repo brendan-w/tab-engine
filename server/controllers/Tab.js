@@ -13,7 +13,10 @@ var tabPage = function(req, res) {
 			return res.status(400).json({error:'An error occurred'});
 		}
 
-		res.render('tab', doc.toAPI());
+		res.render('tab', {
+			tab: doc.toAPI(),
+			logged_in: req.session.account !== undefined,
+		});
 	});
 };
 

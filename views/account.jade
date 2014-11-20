@@ -6,18 +6,20 @@ block append head
 block nav
 	a(href='/') Home
 	a.active(href='/account') Account
+	a(href='/upload') Upload
 	a(href='/logout') Logout
 
 block body
-	h1 #{username}
 
-	a(href='/upload') Upload New Tab
+	br
+
+	h1 #{username}
 
 	br
 
 	ul
 		if !tabs || tabs.length === 0
-			li No Tabs
+			li No Tabs (click 'Upload' to create a new Tab)
 		else
 			each tab in tabs
 				li

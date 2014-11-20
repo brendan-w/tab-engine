@@ -3,8 +3,20 @@ extends ./base.jade
 block append head
 	link(rel='stylesheet', type='text/css', href='/static/css/tab.css')
 
+block nav
+	a(href='/') Home
+	if(logged_in)
+		a(href='/account') Account
+		a(href='/upload') Upload
+		a(href='/logout') Logout
+	else
+		a(href='/login') Login
+		a(href='/signup') Signup
+
 block body
-	h1 #{name}
+	br
+	h1 #{tab.name}
+	br
 	div#tab
 		pre.
-			#{tab}
+			#{tab.tab}
