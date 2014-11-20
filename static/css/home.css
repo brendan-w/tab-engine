@@ -1,5 +1,5 @@
 
-section
+#main section
 {
 	margin-top: 150px;
 	display:inline-block;
@@ -7,13 +7,13 @@ section
 	position: relative;
 }
 
-pre, input
+#main pre, input
 {
 	font-size: 16px;
 	font-family: monospace;
 }
 
-input
+#main input
 {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */

@@ -13,7 +13,7 @@ var router = function(app) {
 	app.get ("/account",         m.logged_in,  c.Account.accountPage);
 	app.get ("/upload",          m.logged_in,  c.Tab.uploadPage);
 	app.post("/upload",          m.logged_in,  c.Tab.upload);
-
+	app.get ("/tab/:tabid",                    c.Tab.tabPage);
 
 };
 

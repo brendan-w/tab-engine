@@ -13,9 +13,14 @@ block body
 
 	a(href='/upload') Upload New Tab
 
+	br
+
 	ul
 		if !tabs || tabs.length === 0
 			li No Tabs
 		else
 			each tab in tabs
-				li #{tab.name}
+				li
+					a.pretty(href='#{tab.url}')
+						span.name #{tab.name}
+						span.artist #{tab.artist}

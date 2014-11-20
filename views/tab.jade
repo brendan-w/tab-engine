@@ -1,0 +1,10 @@
+extends ./base.jade
+
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/tab.css')
+
+block body
+	h1 #{name}
+	div#tab
+		pre.
+			#{tab}

@@ -1,0 +1,35 @@
+
+ul
+{
+	display: inline-block;
+	width:800px;
+}
+
+li
+{
+	display:block;
+	padding:20px;
+	border-bottom:1px solid rgba(0,0,0,0.25);
+	text-align: left;
+}
+
+li:last-child
+{
+	border-bottom: none;
+}
+
+li:hover
+{
+	cursor: pointer;
+	background-color: rgba(0,0,0,0.05);
+}
+
+li span.name
+{
+	margin-right:20px;
+}
+
+li span.artist
+{
+	color:rgba(0,0,0,0.5);
+}

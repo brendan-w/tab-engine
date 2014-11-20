@@ -48,6 +48,7 @@ TabSchema.methods.toAPI = function() {
         tab: this.tab,
         name: this.name,
         artist: this.artist,
+        url: this.toURL(),
     };
 };
 
@@ -60,9 +61,21 @@ TabSchema.statics.findByOwner = function(ownerId, callback) {
     return TabModel.find(search).select("name artist tab").exec(callback);
 };
 
+TabSchema.statics.findByID = function(tabID, callback) {
+    var search = {
+        _id: mongoose.Types.ObjectId(tabID)
+    };
+
+    return TabModel.findOne(search, callback);
+};
+
+TabSchema.methods.toURL = function() {
+    return "/tab/" + this._id;
+};
+
 
 TabModel = mongoose.model('Tab', TabSchema);
 
 
-module.exports.TabModel = TabModel;
+module.exports.TabModel  = TabModel;
 module.exports.TabSchema = TabSchema;

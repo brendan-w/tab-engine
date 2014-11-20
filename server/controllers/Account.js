@@ -28,12 +28,17 @@ module.exports.accountPage = function(req, res) {
 		if(err)
 		{
 			console.log(err);
-			return res.status(400).json({error:'An error occurred'}); 
+			return res.status(400).json({error:'An error occurred'});
 		}
+
+		var tabs = [];
+		docs.forEach(function(d) {
+			tabs.push(d.toAPI());
+		});
 
 		res.render('account', {
 			username: req.session.account.username,
-			tabs: docs,
+			tabs: tabs,
 		});
 	});
 

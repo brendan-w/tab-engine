@@ -3,6 +3,20 @@ var models = require('../models');
 
 var Tab = models.Tab;
 
+var tabPage = function(req, res) {
+
+	Tab.TabModel.findByID(req.param('tabid'), function(err, doc) {
+
+		if(err)
+		{
+			console.log(err);
+			return res.status(400).json({error:'An error occurred'});
+		}
+
+		res.render('tab', doc.toAPI());
+	});
+};
+
 var uploadPage = function(req, res) {
 	res.render('upload');
 };
@@ -13,9 +27,6 @@ var upload = function(req, res) {
 	var name   = req.body.name;
 	var artist = req.body.artist;
 
-	console.log(tab, name, artist);
-
-/*
 	if(!tab || !name || !artist)
 	{
 		return res.status(400).json({error: "All fields are required"});
@@ -25,6 +36,7 @@ var upload = function(req, res) {
 		tab: tab,
 		name: name,
 		artist: artist,
+		owner: req.session.account._id
 	});
 	
 	newTab.save(function(err) {
@@ -36,8 +48,8 @@ var upload = function(req, res) {
 
 		res.json({redirect: '/account'});
 	});
-*/	
 };
 
+module.exports.tabPage    = tabPage;
 module.exports.uploadPage = uploadPage;
-module.exports.upload = upload;
+module.exports.upload     = upload;
