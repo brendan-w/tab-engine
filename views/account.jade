@@ -1,9 +1,12 @@
 extends ./base.jade
 
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/account.css')
+
 block nav
 	a(href='/') Home
 	a.active(href='/account') Account
 	a(href='/logout') Logout
 
 block body
-	h1 Account
+	h1 #{username}
