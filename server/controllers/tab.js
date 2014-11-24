@@ -1,5 +1,6 @@
 
 var models = require('../models');
+var parser = require('../parser');
 
 var Tab = models.Tab;
 
@@ -35,6 +36,9 @@ var upload = function(req, res) {
 		return res.status(400).json({error: "All fields are required"});
 	}
 	
+	
+	
+	//create the new tab
 	var newTab = new Tab.TabModel({
 		tab: tab,
 		name: name,

@@ -1,0 +1,22 @@
+
+#tab
+{
+	margin-top: 20px;
+	padding: 20px;
+	display: inline-block;
+}
+
+#head
+{
+	margin-bottom: 20px;
+}
+
+#head > *
+{
+	margin-bottom: 10px;
+}
+
+#head > *:last-child
+{
+	margin-bottom: 0px;
+}

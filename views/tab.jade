@@ -14,9 +14,9 @@ block nav
 		a(href='/signup') Signup
 
 block body
-	br
-	h1 #{tab.name}
-	br
-	div#tab
+	#tab.shadow
+		#head
+			h1 #{tab.name}
+			h6 #{tab.artist}
 		pre.
 			#{tab.tab}
