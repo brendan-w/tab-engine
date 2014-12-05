@@ -36,6 +36,11 @@ var TabSchema = new mongoose.Schema({
 		ref: 'Account'
 	},
     
+    matrix: {
+        type: Object,
+        required: true,
+    },
+
     createdData: {
         type: Date,
         default: Date.now

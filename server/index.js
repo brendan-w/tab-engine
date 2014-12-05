@@ -10,6 +10,7 @@ var express         = require('express');
 var express_session = require('express-session');
 var mongoose        = require('mongoose');
 var RedisStore      = require('connect-redis')(express_session);
+//var csrf            = require('csurf');
 
 var config          = require("./config.js");
 var router          = require('./router.js');
@@ -26,14 +27,33 @@ app.use('/static', express.static(config.static_dir));
 app.set('views', config.views_dir); 
 app.set('view engine', 'jade'); 
 app.use(compression());
-app.use(body_parser.urlencoded({ extended: true }));
+app.use(body_parser.urlencoded({
+	extended: true,
+}));
 app.use(serve_favicon(config.favicon)); 
+app.disable("x-powered-by");
 app.use(cookie_parser()); 
+/*
+app.use(csrf());
+app.use(function(err, req, res, next) {
+	if(err.code !== "EBADCSRFTOKEN") return next(err);
+
+	//res.status(403);
+	//res.json("bad, real bad");
+	return;
+});
+*/
 app.use(express_session({
     store: new RedisStore(config.redis_url_obj),
     secret: 'why is the cosmos expanding', //the biggest secret
     resave: true,
     saveUninitialized: true,
+/*
+    cookie: {
+    	httpOnly:true,
+    	secure:true,
+    }
+*/
 }));
 
 router(app);

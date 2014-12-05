@@ -50,8 +50,8 @@ module.exports.logout = function(req, res) {
 };
 
 module.exports.login = function(req, res) {
-	var username = req.body.username;
-	var password = req.body.password;
+	var username = req.body.username + ""; //cast to string
+	var password = req.body.password + "";
 
 	if(!username || !password)
 	{

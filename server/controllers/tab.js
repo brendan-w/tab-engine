@@ -1,6 +1,6 @@
 
 var models = require('../models');
-var parser = require('../parser');
+var parse  = require('../parser');
 
 var Tab = models.Tab;
 
@@ -36,14 +36,16 @@ var upload = function(req, res) {
 		return res.status(400).json({error: "All fields are required"});
 	}
 	
-	
-	
+
+	var matrix = parse(tab); //it looks so simple
+
 	//create the new tab
 	var newTab = new Tab.TabModel({
 		tab: tab,
 		name: name,
 		artist: artist,
-		owner: req.session.account._id
+		owner: req.session.account._id,
+		matrix: matrix.getM(),
 	});
 	
 	newTab.save(function(err) {
