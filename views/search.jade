@@ -1,0 +1,27 @@
+extends ./base.jade
+
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/account.css')
+
+block nav
+	a(href='/') Home
+	if(logged_in)
+		a(href='/account') Account
+		a(href='/upload') Upload
+		a(href='/logout') Logout
+	else
+		a(href='/login') Login
+		a(href='/signup') Signup
+
+block body
+
+	if !tabs || tabs.length === 0
+		span.notabs No Tabs (click 'Upload' to create a new Tab)
+	else
+		ul
+			each tab in tabs
+				li
+					a.pretty(href='#{tab.url}')
+						span.name #{tab.name}
+						span.artist #{tab.artist}
+						span.delete X

@@ -6,7 +6,7 @@ function handleError(message)
 	$("form .problem").text(message).css("display", "block");
 }
 
-function sendAjax(action, data)
+function sendAjax(action, data, method)
 {
 	$.ajax({
 		cache: false,

@@ -5,6 +5,7 @@ var m = require('./middleware.js');
 var router = function(app) {
 
 	app.get ("/",           m.https,               c.account.homePage);
+	app.get ("/search",     m.https,               c.tab.searchPage);
 	app.get ("/login",      m.https, m.logged_out, c.account.loginPage); 
 	app.post("/login",      m.https, m.logged_out, c.account.login);
 	app.get ("/signup",     m.https, m.logged_out, c.account.signupPage);

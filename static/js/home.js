@@ -20,6 +20,7 @@ function isNumberKey(e){
 window.onload = function() {
 
 	var _inputs = document.querySelectorAll("pre input");
+	var submit  = document.querySelector("#main button");
 
 	[].forEach.call(_inputs, function(input, i) {
 		input.type = "text";
@@ -63,5 +64,28 @@ window.onload = function() {
 
 			inputs[x][y].focus();
 		}
+	};
+
+	submit.onclick = function(e) {
+		//assemble the input elements into a tab
+		var query = "?";
+
+		for(var y = 0; y < h; y++)
+		{
+			for(var x = 0; x < w; x++)
+			{
+				var css = 'input[x=\"' + x + '\"][y=\"' + y + '\"]';
+				var value = document.querySelector(css).value;
+
+				if(value !== "")
+				{
+					var key = "n" + x + "_" + y;
+					query += key + "=" + value + "&";
+				}
+			}
+		}
+
+		//submit query
+		window.location = "/search" + query;
 	};
 };

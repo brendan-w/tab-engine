@@ -4,7 +4,7 @@ var parse  = require('../parser');
 
 var Tab = models.Tab;
 
-var tabPage = function(req, res) {
+module.exports.tabPage = function(req, res) {
 
 	Tab.TabModel.findByID(req.param('tabid'), function(err, doc) {
 
@@ -21,11 +21,11 @@ var tabPage = function(req, res) {
 	});
 };
 
-var uploadPage = function(req, res) {
+module.exports.uploadPage = function(req, res) {
 	res.render('upload');
 };
 
-var upload = function(req, res) {
+module.exports.upload = function(req, res) {
 
 	var tab    = req.body.tab;
 	var name   = req.body.name;
@@ -59,6 +59,15 @@ var upload = function(req, res) {
 	});
 };
 
-module.exports.tabPage    = tabPage;
-module.exports.uploadPage = uploadPage;
-module.exports.upload     = upload;
+module.exports.searchPage = function(req, res) {
+
+	if(req.query.n0_0 !== undefined)
+	{
+		console.log(req.query.n0_0);
+	}
+
+	res.render('search', {
+		tabs:[],
+		logged_in: req.session.account !== undefined,
+	});
+};

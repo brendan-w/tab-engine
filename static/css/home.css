@@ -29,3 +29,8 @@
 	position: relative;
 	/*top:1px;*/
 }
+
+#main button
+{
+	margin-top:20px;
+}
