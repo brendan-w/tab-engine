@@ -85,7 +85,12 @@ module.exports.deletePage = function(req, res) {
 module.exports.delete = function(req, res) {
 	var tab_id = req.body.tabid;
 
-	TabModel.remove({_id:tab_id}, function(err) {
+	var query = {
+		_id:   tab_id,
+		owner: req.session.account._id,
+	};
+
+	TabModel.remove(query, function(err) {
 		if(err)
 			console.log(err);
 		res.redirect("/account");
