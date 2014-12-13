@@ -1,7 +1,5 @@
 
 var models   = require('../models');
-var parse    = require('../parser');
-var beautify = require('../beautify.js');
 
 //models
 var TabModel = models.Tab.TabModel;
@@ -41,17 +39,12 @@ module.exports.upload = function(req, res) {
 		return res.status(400).json({error: "All fields are required"});
 	}
 	
-
-	var matrix = parse(tab); //it looks so simple
-	tab = beautify(tab); //replace standard chars with prettier utf8 box-drawing chars
-
 	//create the new tab
-	var newTab = new TabModel({
+	var newTab = TabModel.newTab({
 		tab: tab,
 		name: name,
 		artist: artist,
 		owner: req.session.account._id,
-		matrix: matrix.getM(),
 	});
 	
 	newTab.save(function(err) {

@@ -1,7 +1,7 @@
 
 
 var frame = require("./framer.js");
-var Matrix = require("./Matrix.js");
+var matrix = require("./matrix.js");
 var config = require("./config.js");
 
 
@@ -17,7 +17,8 @@ module.exports = function(text, user_data) {
 
 
 	var frames = frame(parts.tabs, tuning);
-	return new Matrix(frames);
+
+	return matrix(frames);
 };
 
 

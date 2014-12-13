@@ -15,6 +15,8 @@ block nav
 
 block body
 	#tab.shadow
+		if logged_in
+			a#delete.pretty(href="/delete?tabid=#{tab.id}") X
 		#head
 			h1 #{tab.name}
 			h6 #{tab.artist}

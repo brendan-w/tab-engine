@@ -1,6 +1,9 @@
 
 var mongoose = require('mongoose');
-var _ = require('underscore');
+var parse    = require('../parser');
+var beautify = require('../beautify.js');
+var ArrayND  = require("../parser/SparseArrayND.js");
+var _        = require('underscore');
 
 var TabModel;
 
@@ -41,11 +44,15 @@ var TabSchema = new mongoose.Schema({
         required: true,
     },
 
+    largest: {
+        type: Number,
+        required: true,
+    },
+
     createdData: {
         type: Date,
         default: Date.now
     }
-
 });
 
 TabSchema.methods.toAPI = function() {
@@ -57,13 +64,33 @@ TabSchema.methods.toAPI = function() {
     };
 };
 
-TabSchema.statics.findByOwner = function(ownerId, callback) {
+TabSchema.methods.getMatrix = function() {
+    return new ArrayND(this.matrix);
+};
 
+//factory for Tab objects
+TabSchema.statics.newTab = function(tab_props, callback) {
+    
+    //preprocess
+    var matrix = parse(tab_props.tab); //it looks so simple
+    tab_props.tab = beautify(tab_props.tab); //replace standard chars with prettier utf8 box-drawing chars
+
+    tab_props.matrix = matrix.matrix;    
+    tab_props.largest = matrix.largest;
+
+    console.log(matrix.matrix);
+
+    //create the new tab
+    return new TabModel(tab_props);
+};
+
+
+TabSchema.statics.findByOwner = function(ownerId, callback) {
     var search = {
         owner: mongoose.Types.ObjectId(ownerId)
     };
 
-    return TabModel.find(search).select("name artist tab").exec(callback);
+    return TabModel.find(search).exec(callback);
 };
 
 TabSchema.statics.findByID = function(tabID, callback) {
@@ -72,6 +99,32 @@ TabSchema.statics.findByID = function(tabID, callback) {
     };
 
     return TabModel.findOne(search, callback);
+};
+
+
+TabSchema.statics.compare = function(this_tab, that_tab) {
+    var m1 = this_tab.getMatrix(); //this matrix (seed from user)
+    var m2 = that_tab.getMatrix(); //the submitted matrix (from the DB)
+
+    //the distance between this, and the given matrix
+    //0 = all patterns in this matrix are present in the given matrix
+    //each discrepency increments the distance by 1
+    //as of now, the relative magnitudes are not considered
+    var d = 0;
+
+    m1.forEach(function(v1, c, a) {
+        //where there's data in M1, there must also be data in M2, else, increase the distance
+        if(v1 !== 0)
+        {
+            var v2 = m2.get(c);
+            if(v2 === 0)
+            {
+                d++;
+            }
+        }
+    });
+
+    return d;
 };
 
 

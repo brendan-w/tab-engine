@@ -30,28 +30,25 @@ etc... for more dimensions
 
 var ArrayND = require("./SparseArrayND.js");
 
-var Matrix = function(frames) {
+module.exports = function(frames) {
 
 	//init the matrix
-	var m = new ArrayND(12, 12, 12); // 12x12
+	var matrix = new ArrayND(12, 12, 12);
 	var largest = 0;
-
-	this.getM = function() { return m; };
-	this.getLargest = function() { return largest; };
 
 	function add(a, b, c)
 	{
 		coord = [a,b,c];
-		var v = m.get(coord);
+		var v = matrix.get(coord);
 		v++;
-		m.set(coord, v);
+		matrix.set(coord, v);
 
 		//update the largest value
 		if(v > largest)
 			largest = v;
 	}
 
-	//add every interval to the m
+	//add every interval to the matrix
 	for(var f = 0; f < frames.length - 2; f++)
 	{
 		var fA = frames[f];
@@ -64,34 +61,9 @@ var Matrix = function(frames) {
 				for(var c = 0; c < fC.length; c++)
 					add(fA[a], fB[b], fC[c]);
 	}
+
+	return {
+		matrix: matrix,
+		largest: largest,
+	};
 };
-
-//Note: this operation is NOT commutative
-Matrix.prototype.compare = function(that) {
-	var m1 = this.getM(); //this matrix (seed from user)
-	var m2 = that.getM(); //the submitted matrix (from the DB)
-
-	//the distance between this, and the given matrix
-	//0 = all patterns in this matrix are present in the given matrix
-	//each discrepency increments the distance by 1
-	//as of now, the relative magnitudes are not considered
-	var d = 0;
-
-	m1.forEach(function(v1, c, a) {
-		//where there's data in M1, there must also be data in M2, else, increase the distance
-		if(v1 !== 0)
-		{
-			var v2 = m2.get(c);
-			if(v2 === 0)
-			{
-				d++;
-				//console.log(c, v1, v2);
-			}
-		}
-	});
-
-	return d;
-};
-
-
-module.exports = Matrix;

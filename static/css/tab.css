@@ -1,6 +1,7 @@
 
 #tab
 {
+	position: relative;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	padding: 20px;
@@ -25,4 +26,21 @@
 #tab pre
 {
 	text-align: left;
+}
+
+#delete
+{
+	position: absolute;
+	top:0px;
+	right:0px;
+
+	padding:10px;
+	text-align: center;
+	color:rgba(0,0,0,0.5);
+	background-color: rgba(0,0,0,0.15);
+}
+
+#delete:hover
+{
+	background-color: rgba(0,0,0,0.2);
 }
