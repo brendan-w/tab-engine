@@ -1,0 +1,18 @@
+extends ./base.jade
+
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/delete.css')
+
+block nav
+	a(href='/') Home
+	a.active(href='/login') Login
+	a(href='/signup') Signup
+
+block body
+	#delete.shadow
+		h4 Delete "#{tab.name}" by "#{tab.artist}"?
+		form(action="/delete", method="POST")
+			input(type='hidden' name='tabid' value='#{tab.id}')
+			button(tabindex='2') Yes
+		form(action="/account")
+			button(tabindex='1' autofocus) No

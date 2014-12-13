@@ -19,7 +19,7 @@ block body
 		ul
 			each tab in tabs
 				li
-					a.pretty(href='#{tab.url}')
+					a.tab.pretty(href='/tab?tabid=#{tab.id}')
 						span.name #{tab.name}
 						span.artist #{tab.artist}
-						span.delete X
+					a.pretty.delete(href="/delete?tabid=#{tab.id}") X

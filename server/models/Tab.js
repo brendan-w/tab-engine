@@ -53,7 +53,7 @@ TabSchema.methods.toAPI = function() {
         tab: this.tab,
         name: this.name,
         artist: this.artist,
-        url: this.toURL(),
+        id: this._id,
     };
 };
 
@@ -72,10 +72,6 @@ TabSchema.statics.findByID = function(tabID, callback) {
     };
 
     return TabModel.findOne(search, callback);
-};
-
-TabSchema.methods.toURL = function() {
-    return "/tab/" + this._id;
 };
 
 

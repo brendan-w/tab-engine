@@ -1,12 +1,17 @@
 
-var models = require('../models');
-var parse  = require('../parser');
+var models   = require('../models');
+var parse    = require('../parser');
+var beautify = require('../beautify.js');
 
-var Tab = models.Tab;
+//models
+var TabModel = models.Tab.TabModel;
+
 
 module.exports.tabPage = function(req, res) {
 
-	Tab.TabModel.findByID(req.param('tabid'), function(err, doc) {
+	var tab_id = req.query.tabid;
+
+	TabModel.findByID(tab_id, function(err, doc) {
 
 		if(err)
 		{
@@ -38,9 +43,10 @@ module.exports.upload = function(req, res) {
 	
 
 	var matrix = parse(tab); //it looks so simple
+	tab = beautify(tab); //replace standard chars with prettier utf8 box-drawing chars
 
 	//create the new tab
-	var newTab = new Tab.TabModel({
+	var newTab = new TabModel({
 		tab: tab,
 		name: name,
 		artist: artist,
@@ -59,6 +65,34 @@ module.exports.upload = function(req, res) {
 	});
 };
 
+module.exports.deletePage = function(req, res) {
+	var tab_id = req.query.tabid;
+
+	TabModel.findByID(tab_id, function(err, doc) {
+		if(err)
+		{
+			console.log(err);
+			return res.redirect('/account');
+		}
+		else
+		{
+			res.render('delete', { tab: doc.toAPI() });
+		}
+	});
+};
+
+
+module.exports.delete = function(req, res) {
+	var tab_id = req.body.tabid;
+
+	TabModel.remove({_id:tab_id}, function(err) {
+		if(err)
+			console.log(err);
+		res.redirect("/account");
+	});
+};
+
+
 module.exports.searchPage = function(req, res) {
 
 	if(req.query.n0_0 !== undefined)
@@ -71,3 +105,4 @@ module.exports.searchPage = function(req, res) {
 		logged_in: req.session.account !== undefined,
 	});
 };
+

@@ -1,0 +1,28 @@
+
+#delete
+{
+	width:300px;
+	padding:20px 50px;
+	display: inline-block;
+	margin-top:150px;
+}
+
+#delete > *
+{
+	margin-bottom:10px;
+}
+
+#delete button
+{
+	width:100%;
+}
+
+#delete h4
+{
+	margin-bottom: 20px;
+}
+
+#delete > *:last-child
+{
+	margin-bottom: 0px;
+}

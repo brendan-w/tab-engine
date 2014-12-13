@@ -14,7 +14,9 @@ var router = function(app) {
 	app.get ("/account",             m.logged_in,  c.account.accountPage);
 	app.get ("/upload",              m.logged_in,  c.tab.uploadPage);
 	app.post("/upload",              m.logged_in,  c.tab.upload);
-	app.get ("/tab/:tabid",                        c.tab.tabPage);
+	app.get ("/delete",              m.logged_in,  c.tab.deletePage);
+	app.post("/delete",              m.logged_in,  c.tab.delete);
+	app.get ("/tab",                               c.tab.tabPage);
 
 };
 

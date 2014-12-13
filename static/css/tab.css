@@ -2,6 +2,7 @@
 #tab
 {
 	margin-top: 20px;
+	margin-bottom: 20px;
 	padding: 20px;
 	display: inline-block;
 }
@@ -19,4 +20,9 @@
 #head > *:last-child
 {
 	margin-bottom: 0px;
+}
+
+#tab pre
+{
+	text-align: left;
 }
