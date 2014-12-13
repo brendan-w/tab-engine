@@ -78,8 +78,6 @@ TabSchema.statics.newTab = function(tab_props, callback) {
     tab_props.matrix = matrix.matrix;    
     tab_props.largest = matrix.largest;
 
-    console.log(matrix.matrix);
-
     //create the new tab
     return new TabModel(tab_props);
 };

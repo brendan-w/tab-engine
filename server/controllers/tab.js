@@ -1,4 +1,5 @@
 
+var util     = require('../util.js');
 var models   = require('../models');
 
 //models
@@ -93,14 +94,11 @@ module.exports.delete = function(req, res) {
 
 module.exports.searchPage = function(req, res) {
 
-	if(req.query.n0_0 !== undefined)
-	{
-		console.log(req.query.n0_0);
-	}
+	var searchTab = util.queryToTab(req.query);
+	console.log(searchTab);
 
 	res.render('search', {
 		tabs:[],
 		logged_in: req.session.account !== undefined,
 	});
 };
-
