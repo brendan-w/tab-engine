@@ -151,8 +151,9 @@ function adjustFrames(frames, tuning, noteFrames)
 	frames.forEach(function(frame) {
 		var notes = [];
 		frame.forEach(function(note, s) {
-			if(note !== "")
-				notes.push((tuning[s] + parseInt(note)) % 12); //octave data is irrelevant here
+			note = parseInt(note);
+			if(!isNaN(note))
+				notes.push((tuning[s] + note) % 12); //octave data is irrelevant here
 		});
 		noteFrames.push(notes);
 	});

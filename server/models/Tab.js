@@ -81,9 +81,6 @@ TabSchema.statics.newTab = function(tab_props, callback) {
     //preprocess
     tab_props = parse(tab_props); //it looks so simple
 
-    //replace standard chars with prettier utf8 box-drawing chars
-    tab_props.tab = beautify(tab_props.tab);
-
     //create the new tab
     return new TabModel(tab_props);
 };

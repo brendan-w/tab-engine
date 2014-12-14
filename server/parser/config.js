@@ -30,9 +30,3 @@ module.exports.tuning = {
 	"doubleDropD" : [2, 11, 7, 2, 9, 2],
 	"modalD"      : [2, 9,  7, 2, 9, 2],
 };
-//                                  high            low
-
-
-
-
-

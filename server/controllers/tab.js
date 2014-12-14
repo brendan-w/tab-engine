@@ -44,6 +44,9 @@ module.exports.upload = function(req, res) {
 		tab: tab,
 		name: name,
 		artist: artist,
+		tuning: "TEMP",
+		key: "TEMP",
+		scale: "TEMP",
 		owner: req.session.account._id,
 	});
 	

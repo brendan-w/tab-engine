@@ -5,6 +5,11 @@
 	padding:30px;
 }
 
+#fields
+{
+	margin-bottom: 30px
+}
+
 .field
 {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -13,6 +18,7 @@
 
 	display: inline-block;
 	width:22%;
+	height:7em;
 	padding:0px 30px;
 	vertical-align: top;
 	border-right:1px solid #aaa;
