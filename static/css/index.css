@@ -1,0 +1,34 @@
+
+#main form
+{
+	margin-top: 150px;
+	padding:30px;
+}
+
+.field
+{
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+
+	display: inline-block;
+	width:22%;
+	padding:0px 30px;
+	vertical-align: top;
+	border-right:1px solid #aaa;
+}
+
+.field:last-child
+{
+	border-right:none;
+}
+
+.field h1
+{
+	margin-bottom: 10px;
+}
+
+.field > *
+{
+	width:100%;
+}

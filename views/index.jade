@@ -1,0 +1,29 @@
+extends ./base.jade
+
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/index.css')
+
+block nav
+	a.active(href='/') Home
+	if(logged_in)
+		a(href='/account') Account
+		a(href='/upload') Upload
+		a(href='/logout') Logout
+	else
+		a(href='/login') Login
+		a(href='/signup') Signup
+
+block body
+	form.shadow
+		#fields
+			div.field
+				h1 Name
+				input(type="text", name="song",   placeholder="song")
+				input(type="text", name="artist", placeholder="artist")
+			div.field
+				h1 Tuning
+			div.field
+				h1 Key
+			div.field
+				h1 Scale
+		button Search

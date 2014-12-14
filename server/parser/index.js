@@ -9,16 +9,27 @@ var config = require("./config.js");
 
 
 //main function
-module.exports = function(text, user_data) {
-	var parts = split(text);
+/*
+	accepts an object containing all properties found in the Tab model
+	parses for undefined data
+
+	{
+		tab: <the raw tab text>
+		name: <song name>
+		artist: <artist name>
+		
+	}
+*/
+module.exports = function(tab_props) {
+
+	var parts = split(tab_props.tab);
 
 	//parse the meta data
 	var tuning = tuningFromMeta(parts.meta) || config.tuning.standard;
-
-
 	var frames = frame(parts.tabs, tuning);
-
-	return matrix(frames);
+	var m = matrix(frames);
+	
+	return tab_props;
 };
 
 

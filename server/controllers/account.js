@@ -8,7 +8,7 @@ var Tab     = models.Tab;
 
 
 module.exports.homePage = function(req, res) {
-	res.render('home', {
+	res.render('index', {
 		logged_in: req.session.account !== undefined
 	});
 };
