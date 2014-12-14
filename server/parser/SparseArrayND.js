@@ -32,7 +32,7 @@ var SparseArrayND = function() {
 		}
 	}
 
-	if(arguments.length === 1 && arguments[0] instanceof ArrayND)
+	if(arguments.length === 1)
 	{
 		//copy constructor
 		var other = arguments[0];

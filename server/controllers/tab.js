@@ -97,6 +97,12 @@ module.exports.searchPage = function(req, res) {
 	var searchTab = util.queryToTab(req.query);
 	console.log(searchTab);
 
+	//perform query
+	TabModel.findByTab(searchTab, function(err, docs) {
+		console.log("err", err);
+		console.log("docs", docs.length);
+	});
+
 	res.render('search', {
 		tabs:[],
 		logged_in: req.session.account !== undefined,

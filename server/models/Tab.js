@@ -35,7 +35,7 @@ var TabSchema = new mongoose.Schema({
 
     owner: 	{
 		type: mongoose.Schema.ObjectId,
-		required: true,
+		required: false,
 		ref: 'Account'
 	},
     
@@ -100,7 +100,8 @@ TabSchema.statics.findByID = function(tabID, callback) {
 };
 
 
-TabSchema.statics.compare = function(this_tab, that_tab) {
+TabSchema.statics.distance = function(this_tab, that_tab) {
+
     var m1 = this_tab.getMatrix(); //this matrix (seed from user)
     var m2 = that_tab.getMatrix(); //the submitted matrix (from the DB)
 
@@ -123,11 +124,38 @@ TabSchema.statics.compare = function(this_tab, that_tab) {
     });
 
     return d;
+}
+
+
+//the magic search by tab content function
+TabSchema.statics.findByTab = function(query_tab, callback) {
+
+    var query = TabModel.newTab({
+        tab: query_tab,
+        name: "query",
+        artist: "query",
+    });
+
+
+    //this is disgusting...
+    TabModel.find().exec(function(err, docs) {
+        if(err)
+            callback(err);
+
+        var passed = [];
+        docs.forEach(function(doc) {
+            if(TabModel.distance(query, doc) === 0)
+                passed.push(doc);
+        });
+
+        callback(null, passed);
+    })
 };
 
 
-TabModel = mongoose.model('Tab', TabSchema);
 
+
+TabModel = mongoose.model('Tab', TabSchema);
 
 module.exports.TabModel  = TabModel;
 module.exports.TabSchema = TabSchema;
