@@ -1,4 +1,6 @@
 
+var Array2D = require('./Array2D.js');
+
 module.exports.stringTest     = /(.*\|-.*)|(.*-\|.*)/;     //check whether a string represents a guitar string (in tab form)
 module.exports.songTest       = /name|song/i;              //keys found near the song name
 module.exports.artistTest     = /artist|band|group|by/i;   //keys found near the artist's name
@@ -142,3 +144,6 @@ module.exports.scales = {
 	'Super Locrian':              [0,1,3,4,6,8,10],
 	'Moorish Phrygian':           [0,1,3,4,5,7,8,10,11],
 };
+
+//pre-generate comparison matrices
+

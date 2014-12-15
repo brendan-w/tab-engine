@@ -1,7 +1,7 @@
 
 
-var frame = require("./framer.js");
-var matrix = require("./matrix.js");
+var framer = require("./framer.js");
+var matrixer = require("./matrixer.js");
 var config = require("./config.js");
 
 
@@ -26,22 +26,10 @@ module.exports = function(tab_props) {
 
 	//parse the meta data
 	var tuning = tuningFromMeta(parts.meta) || config.tuning.standard;
-	var frames = frame(parts.tabs, tuning);
-	//var m = matrix(frames);
+	var frames = framer(parts.tabs, tuning);
+	var matrix = matrixer(frames);
 
-	var totals = [0,0,0,0,0,0,0,0,0,0,0,0];
-	for(var i = 0; i < frames.length; i++)
-	{
-		for(var n = 0; n < frames[i].length; n++)
-		{
-			totals[frames[i][n]]++;
-		}
-	}
-
-	var sum = totals.reduce(function(a, b) { return a + b });
-	var avg = sum / totals.length;
-	console.log(totals);
-	console.log(avg);
+	matrix.log();
 
 	return tab_props;
 };

@@ -23,24 +23,21 @@ A# |                     8
 B  |         15             4  5
 
 
-etc... for more dimensions
-
 */
 
+var Array2D = require('./Array2D.js');
 
 module.exports = function(frames) {
 
 	//init the matrix
 	var largest = 0;
+	var matrix = new Array2D(12, 12);
 
-	function add(a, b)
+	function add(x, y)
 	{
-		var coord = [a,b];
-		var v = matrix.get(coord);
-		v++;
-		matrix.set(coord, v);
-
+		matrix[x][y]++;
 		//update the largest value
+		var v = matrix[x][y];
 		if(v > largest)
 			largest = v;
 	}
@@ -57,8 +54,5 @@ module.exports = function(frames) {
 				add(fA[a], fB[b]);
 	}
 
-	return {
-		matrix: matrix,
-		largest: largest,
-	};
+	return matrix;
 };
