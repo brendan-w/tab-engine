@@ -54,5 +54,10 @@ module.exports = function(frames) {
 				add(fA[a], fB[b]);
 	}
 
+	//normalize
+	matrix.forEach(function(v, x, y, m) {
+		m[x][y] = v / largest;
+	});
+
 	return matrix;
 };

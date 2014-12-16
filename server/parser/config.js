@@ -52,7 +52,7 @@ module.exports.tuning = {
 	'Open G Tuning':     [2,  11, 7,  2,  7,  2 ],
 };
 
-module.exports.scales = {
+var scales = {
 	'Major':                      [0,2,4,5,7,9,11],
 	'Harmonic Minor':             [0,2,3,5,7,8,11],
 	'Melodic Minor (Ascending)':  [0,2,3,5,7,9,11],
@@ -144,6 +144,18 @@ module.exports.scales = {
 	'Super Locrian':              [0,1,3,4,6,8,10],
 	'Moorish Phrygian':           [0,1,3,4,5,7,8,10,11],
 };
+module.exports.scales = scales;
 
-//pre-generate comparison matrices
+//construct scale comparison matrices
+var scale_matrices = {};
+for(var scale in scales)
+{
+	var matrix = new Array2D(12, 12);
+	var values = scales[scale];
+	for(var x = 0; x < values.length; x++)
+		for(var y = 0; y < values.length; y++)
+			matrix[values[x]][values[y]] = 1;
+	scale_matrices[scale] = matrix;
+}
 
+module.exports.scale_matrices = scale_matrices;

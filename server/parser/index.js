@@ -1,8 +1,9 @@
 
 
-var framer = require("./framer.js");
+var framer   = require("./framer.js");
 var matrixer = require("./matrixer.js");
-var config = require("./config.js");
+var scaler   = require("./scaler.js");
+var config   = require("./config.js");
 
 
 
@@ -17,7 +18,6 @@ var config = require("./config.js");
 		tab: <the raw tab text>
 		name: <song name>
 		artist: <artist name>
-
 	}
 */
 module.exports = function(tab_props) {
@@ -25,11 +25,13 @@ module.exports = function(tab_props) {
 	var parts = split(tab_props.tab);
 
 	//parse the meta data
-	var tuning = tuningFromMeta(parts.meta) || config.tuning.standard;
+	var tuning = tuningFromMeta(parts.meta) || config.tuning['Standard'];
 	var frames = framer(parts.tabs, tuning);
+	var key    = findKey(frames);
 	var matrix = matrixer(frames);
+	var scale  = scaler(matrix, key);
 
-	matrix.log();
+	console.log("Scale =", scale);
 
 	return tab_props;
 };
@@ -98,4 +100,17 @@ function tuningFromMeta(text)
 	}
 	*/
 	return tuning;
+}
+
+function findKey(frames)
+{
+	//init array of zeros for each note
+	var notes = Array.apply(null, new Array(12)).map(Number.prototype.valueOf, 0);
+
+	for(var i = 0; i < frames.length; i++)
+		for(var n = 0; n < frames[i].length; n++)
+			notes[frames[i][n]]++;
+
+	var max = Math.max.apply(Math, notes);
+	return notes.indexOf(max);
 }
