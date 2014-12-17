@@ -10,8 +10,10 @@ var config = require("./config.js");
 
 
 //main function
-module.exports = function(tabs, globalTuning) {
+module.exports = function(tabs) {
 	var noteFrames = [];
+
+	var tuning = config.tuning['Standard']; //default tuning
 
 	tabs.forEach(function(strings) {
 		var numStrings = strings.length;
@@ -19,14 +21,17 @@ module.exports = function(tabs, globalTuning) {
 		if(numStrings > 0)
 		{
 			//a tuning defined at the string level gets priority
-			var localTuning = tuningFromStrings(strings) || globalTuning;
+			tuning = tuningFromStrings(strings) || tuning;
 			var columns = stringsToColumns(strings);
 			var frames = columnsToFrames(columns, numStrings);
-			adjustFrames(frames, localTuning, noteFrames);
+			adjustFrames(frames, tuning, noteFrames);
 		}
 	});
 	
-	return noteFrames;
+	return {
+		frames: noteFrames,
+		tuning: tuning, 
+	};
 };
 
 

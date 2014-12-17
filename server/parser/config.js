@@ -10,7 +10,7 @@ module.exports.maxFret        = 36;                        //sanity check (only 
 module.exports.maxFretDigits  = module.exports.maxFret.toString().length;
 
 module.exports.linePrefixTest = /\s*[abcdefg#]+.*-/i;
-module.exports.keys           = [
+module.exports.keys = [
 	"C",
 	"C#",
 	"D",
@@ -24,7 +24,7 @@ module.exports.keys           = [
 	"A#",
 	"B",
 ]
-module.exports.keyTests       = [
+module.exports.keyTests = [
 	/C/i,
 	/C#|Db/i,
 	/D/i,
@@ -66,6 +66,34 @@ module.exports.tuning = {
 	'Open G Tuning':     [2,  11, 7,  2,  7,  2 ],
 };
 
+//a few helper functions for managing tunings
+
+function equalTuning(t1, t2)
+{
+	if(t1.length !== t2.length)
+		return false;
+
+	for(var i = 0; i < t1.length; i++)
+		if(t1[i] !== t2[i]) return false;
+
+	return true;
+};
+
+module.exports.tuningToString = function(t) {
+	for(var tuning in module.exports.tuning)
+	{
+		if(equalTuning(t, module.exports.tuning[tuning]))
+			return tuning;
+	}
+
+	//unknown tuning, print the notes
+	t = t.slice(0); //clone
+	for(var i = 0; i < t.length; i++)
+		t[i] = module.exports.keys[t[i]];
+
+	return t.join("-");
+};
+
 var scales = {
 	'Major':                      [0,2,4,5,7,9,11],
 	'Harmonic Minor':             [0,2,3,5,7,8,11],
@@ -87,6 +115,10 @@ var scales = {
 	'Mixolydian':                 [0,2,4,5,7,9,10],
 	'Aeolian':                    [0,2,3,5,7,8,10],
 	'Locrian':                    [0,1,3,5,6,8,10],
+	
+	//not using these, because the algorithm is way to shaky to handle this many possibilities
+	// (unless you want everything to get classified as something like 'Hirajoshi 2')
+	//note to self: program better
 	/*
 	'Bebop Major':                [0,2,4,5,7,8,9,11],
 	'Bebop Minor':                [0,2,3,4,5,7,9,10],

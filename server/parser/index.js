@@ -25,14 +25,15 @@ module.exports = function(tab_props) {
 	var parts = split(tab_props.tab);
 
 	//parse the meta data
-	var tuning = tuningFromMeta(parts.meta) || config.tuning['Standard'];
-	var frames = framer(parts.tabs, tuning);
-	var key    = findKey(frames);
-	var matrix = matrixer(frames);
+	var framed = framer(parts.tabs);
+	
+	var key    = findKey(framed.frames);
+	var matrix = matrixer(framed.frames);
 	var scale  = scaler(matrix, key);
 
-	tab_props.key = config.keys[key]; //lookup the string name for this key
-	tab_props.scale = scale;
+	tab_props.key    = config.keys[key]; //lookup the string name for this key
+	tab_props.scale  = scale;
+	tab_props.tuning = config.tuningToString(framed.tuning);
 	
 
 	return tab_props;
@@ -85,24 +86,6 @@ function split(text)
 	};
 }
 
-
-function tuningFromMeta(text)
-{
-	var tuning = null;
-	/*
-	var matches = text.match(/\n.*tuning.*\n/i);
-
-	if(matches !== null)
-	{
-		var line = matches[0];
-		if(!/standard/i.test(line))
-		{
-
-		}
-	}
-	*/
-	return tuning;
-}
 
 function findKey(frames)
 {
