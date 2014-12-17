@@ -33,27 +33,11 @@ app.use(body_parser.urlencoded({
 app.use(serve_favicon(config.favicon)); 
 app.disable("x-powered-by");
 app.use(cookie_parser()); 
-/*
-app.use(csrf());
-app.use(function(err, req, res, next) {
-	if(err.code !== "EBADCSRFTOKEN") return next(err);
-
-	//res.status(403);
-	//res.json("bad, real bad");
-	return;
-});
-*/
 app.use(express_session({
     store: new RedisStore(config.redis_url_obj),
     secret: 'why is the cosmos expanding', //the biggest secret
     resave: true,
     saveUninitialized: true,
-/*
-    cookie: {
-    	httpOnly:true,
-    	secure:true,
-    }
-*/
 }));
 
 router(app);

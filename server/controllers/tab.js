@@ -102,15 +102,16 @@ module.exports.searchPage = function(req, res) {
 	var search = {};
 	
 	if(req.query.song)
-		search.name = req.query.song;
+		search.name = new RegExp(req.query.song, "i");
 	if(req.query.artist)
-		search.artist = req.query.artist;
+		search.artist = new RegExp(req.query.artist, "i");
 	if(req.query.key)
 		search.key = req.query.key;
 	if(req.query.tuning)
 		search.tuning = req.query.tuning;
 	if(req.query.scale)
 		search.scale = req.query.scale;
+
 
 	TabModel.find(search).limit(50).exec(function(err, docs) {
 		if(err)

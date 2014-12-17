@@ -109,6 +109,7 @@ function findKey(frames)
 	//init array of zeros for each note
 	var notes = Array.apply(null, new Array(12)).map(Number.prototype.valueOf, 0);
 
+	//ha... this is by no means accurate. at all...
 	for(var i = 0; i < frames.length; i++)
 		for(var n = 0; n < frames[i].length; n++)
 			notes[frames[i][n]]++;

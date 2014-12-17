@@ -1,8 +1,8 @@
 
-var mongoose = require('mongoose');
-var parse    = require('../parser');
-var beautify = require('../beautify.js');
-var _        = require('underscore');
+var mongoose   = require('mongoose');
+var parse      = require('../parser');
+var beautify   = require('../beautify.js');
+var _          = require('underscore');
 
 var TabModel;
 
@@ -20,7 +20,6 @@ var TabSchema = new mongoose.Schema({
     
     name: {
         type: String,
-        index:true,
         required: true,
         trim: true,
         set: setText,
@@ -28,7 +27,6 @@ var TabSchema = new mongoose.Schema({
     
     artist: {
         type: String,
-        index:true,
         required: true,
         trim: true,
         set: setText,
@@ -67,6 +65,10 @@ var TabSchema = new mongoose.Schema({
     }
 });
 
+TabSchema.index({
+    name: 'text',
+    artist: 'text'
+});
 
 //factory for Tab objects
 TabSchema.statics.newTab = function(tab_props, callback) {
