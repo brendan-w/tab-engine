@@ -4,18 +4,25 @@
 	margin-bottom: 20px;
 }
 
+
 #main ul
 {
 	display: inline-block;
 	width:600px;
+	text-align: left;
 }
+
 
 #main li
 {
 	font-size: 0px;
 	display:block;
-	border-bottom:1px solid rgba(0,0,0,0.25);
-	text-align: left;
+	border-bottom:1px solid rgba(0,0,0,0.15);
+}
+
+#labels
+{
+	border-bottom: 1px solid black !important;
 }
 
 #main li > *
@@ -36,18 +43,34 @@
 	border-bottom: none;
 }
 
-#main li:hover
+#main li:not(#labels):hover
 {
 	cursor: pointer;
 	background-color: rgba(0,0,0,0.05);
 }
 
-#main li span.name
+
+#main li a.tab > *
 {
 	margin-right:20px;
 }
 
-#main li span.artist
+.name,
+.artist,
+.key,
+.scale
+{
+	display: inline-block;
+}
+
+span.name   { width:10em; }
+span.artist { width:10em; }
+span.key    { width:2em;  }
+span.scale  { width:6em;  }
+
+.artist,
+.key,
+.scale
 {
 	color:rgba(0,0,0,0.5);
 }
