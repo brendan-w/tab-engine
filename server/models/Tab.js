@@ -65,15 +65,6 @@ var TabSchema = new mongoose.Schema({
     }
 });
 
-TabSchema.methods.toAPI = function() {
-    return {
-        tab: this.tab,
-        name: this.name,
-        artist: this.artist,
-        id: this._id,
-    };
-};
-
 
 //factory for Tab objects
 TabSchema.statics.newTab = function(tab_props, callback) {

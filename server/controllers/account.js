@@ -60,7 +60,7 @@ module.exports.login = function(req, res) {
 			return res.status(401).json({error: "Wrong username or password"});
 		}
 		
-		req.session.account = account.toAPI();
+		req.session.account = account;
 		res.json({redirect: '/account'});
 	});
 };
@@ -97,7 +97,7 @@ module.exports.signup = function(req, res) {
 				return res.status(400).json({error:'An error occurred'}); 
 			}
 
-			req.session.account = newAccount.toAPI();
+			req.session.account = newAccount;
 			res.json({redirect: '/account'});
 		});
 	});
