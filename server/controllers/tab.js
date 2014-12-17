@@ -115,7 +115,7 @@ module.exports.import = function(req, res) {
 		});
 
 	}
-	else if((req.body.random) && (req.body.random < 100))
+	else if((req.body.random) && (req.body.random <= 100))
 	{
 		//random mode
 		for(var i = 0; i < req.body.random; i++)
