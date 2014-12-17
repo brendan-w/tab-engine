@@ -47,12 +47,6 @@ module.exports.upload = function(req, res) {
 		tab: tab,
 		name: name,
 		artist: artist,
-		
-		//these are discovered by the parser
-		tuning: "Unknown",
-		key: "Unknown",
-		scale: "Unknown",
-		
 		owner: req.session.account._id,
 	});
 	
@@ -137,22 +131,16 @@ module.exports.import = function(req, res) {
 			
 			//test that this is actually a tab, and not a bunch of parse errors
 			if(tabTest.test(tab.tab) &&
-				//!/[<>]/.test(tab.tab) &&
-				// !/[<>]/.test(tab.song) &&
-				// !/[<>]/.test(tab.artist) &&
-				// tab.song.length < 50 &&
+				!/[<>]/.test(tab.tab) &&
+				!/[<>]/.test(tab.song) &&
+				!/[<>]/.test(tab.artist) &&
+				tab.song.length < 50 &&
 				tab.artist.length < 50)
 			{
 				newTabs.push(TabModel.newTab({
 					tab: tab.tab,
 					name: tab.song,
 					artist: tab.artist,
-					
-					//these are discovered by the parser
-					tuning: "Unknown",
-					key: "Unknown",
-					scale: "Unknown",
-					
 					owner: req.session.account._id,
 				}));
 			}

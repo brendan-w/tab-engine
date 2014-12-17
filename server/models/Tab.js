@@ -71,10 +71,22 @@ TabSchema.index({
 });
 
 //factory for Tab objects
-TabSchema.statics.newTab = function(tab_props, callback) {
+TabSchema.statics.newTab = function(tab_props) {
     
+    tab_props.tuning = "Unknown";
+    tab_props.key = "Unknown";
+    tab_props.scale = "Unknown";
+
     //preprocess
-    tab_props = parse(tab_props); //it looks so simple
+    try
+    {
+        tab_props = parse(tab_props); //it looks so simple
+    }
+    catch(e)
+    {
+        /* not a whole lot I can do about this... */
+    }
+
     tab_props.tab = beautify(tab_props.tab); //make it pretty
 
     //create the new tab

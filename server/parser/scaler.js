@@ -11,7 +11,7 @@ function distance(matrix, scale)
 	var scale_matrix = config.scale_matrices[scale];
 	var d = 0;
 	matrix.forEach(function(v, x, y) {
-		d += Math.abs(v - scale_matrix[x][y])
+		d += Math.abs(v - scale_matrix[x][y]);
 	});
 	return d;
 }

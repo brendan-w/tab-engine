@@ -13,7 +13,7 @@ var config = require("./config.js");
 module.exports = function(tabs) {
 	var noteFrames = [];
 
-	var tuning = config.tuning['Standard']; //default tuning
+	var tuning = config.tuning.Standard; //default tuning
 
 	tabs.forEach(function(strings) {
 		var numStrings = strings.length;

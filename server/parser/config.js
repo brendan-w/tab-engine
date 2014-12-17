@@ -23,7 +23,8 @@ module.exports.keys = [
 	"A",
 	"A#",
 	"B",
-]
+];
+
 module.exports.keyTests = [
 	/C/i,
 	/C#|Db/i,
@@ -74,10 +75,11 @@ function equalTuning(t1, t2)
 		return false;
 
 	for(var i = 0; i < t1.length; i++)
-		if(t1[i] !== t2[i]) return false;
+		if(t1[i] !== t2[i])
+			return false;
 
 	return true;
-};
+}
 
 module.exports.tuningToString = function(t) {
 	for(var tuning in module.exports.tuning)
