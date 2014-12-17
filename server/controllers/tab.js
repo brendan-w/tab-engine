@@ -1,5 +1,8 @@
 
-var models   = require('../models');
+var async      = require("async");
+var importURL  = require('../util.js').importURL;
+var tabTest    = require('../parser/config.js').stringTest;
+var models     = require('../models');
 
 //models
 var TabModel = models.Tab.TabModel;
@@ -93,6 +96,78 @@ module.exports.delete = function(req, res) {
 		if(err)
 			console.log(err);
 		res.redirect("/account");
+	});
+};
+
+
+module.exports.importPage = function(req, res) {
+	res.render('import');
+};
+
+
+module.exports.import = function(req, res) {
+
+	//discrete urls
+	var urls = [];
+
+	if(req.body.tabs)
+	{
+		req.body.tabs.split(/[\s,]/).forEach(function(v) {
+			if(v) urls.push(v);
+		});
+
+	}
+	else if((req.body.random) && (req.body.random < 1000))
+	{
+		//random mode
+		for(var i = 0; i < req.body.random; i++)
+			urls.push("http://www.ultimate-guitar.com/search.php?random=Get+random&type=200");
+	}
+
+
+
+	//start downloading
+	async.map(urls, importURL, function(err, tabs) {		
+		var newTabs = [];
+
+		for(var i = 0; i < tabs.length; i++)
+		{
+			var tab = tabs[i];
+
+			
+			//test that this is actually a tab, and not a bunch of parse errors
+			if(tabTest.test(tab.tab) &&
+				//!/[<>]/.test(tab.tab) &&
+				// !/[<>]/.test(tab.song) &&
+				// !/[<>]/.test(tab.artist) &&
+				// tab.song.length < 50 &&
+				tab.artist.length < 50)
+			{
+				newTabs.push(TabModel.newTab({
+					tab: tab.tab,
+					name: tab.song,
+					artist: tab.artist,
+					
+					//these are discovered by the parser
+					tuning: "Unknown",
+					key: "Unknown",
+					scale: "Unknown",
+					
+					owner: req.session.account._id,
+				}));
+			}
+		}
+
+		function saveTab(tab, save_callback)
+		{
+			tab.save(save_callback);
+		}
+
+		//save all the tabs to the DB
+		async.map(newTabs, saveTab, function(err) {
+			// res.redirect("/import");
+			res.redirect("/account");
+		});
 	});
 };
 

@@ -1,0 +1,23 @@
+extends ./base.jade
+
+block append head
+	link(rel='stylesheet', type='text/css', href='/static/css/import.css')
+
+block nav
+	a(href='/') Home
+	a(href='/account') Account
+	a.active(href='/upload') Upload
+	a(href='/logout') Logout
+
+block body
+	form.shadow(action="/import", method="POST")
+		h2 Import Tabs
+		h6 Enter urls of tabs on Ultimate-Guitar.com
+		textarea.mono(name='tabs' placeholder='Tab' tabindex='3')
+		button Import
+
+	form.shadow(action="/import", method="POST")
+		h2 Random
+		h6 Import random tabs, I'm feeling lucky
+		input(type="number", name="random", value="1", min="1", max="1000")
+		button Import

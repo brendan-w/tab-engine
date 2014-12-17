@@ -27,6 +27,7 @@
 
 #main li > *
 {
+	vertical-align: top;
 	padding:10px;
 	font-size: 12pt;
 	display: inline-block;
@@ -52,6 +53,7 @@
 
 #main li a.tab > *
 {
+	vertical-align: top;
 	margin-right:20px;
 }
 

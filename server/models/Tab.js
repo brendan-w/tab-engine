@@ -1,7 +1,7 @@
 
 var mongoose   = require('mongoose');
 var parse      = require('../parser');
-var beautify   = require('../beautify.js');
+var beautify   = require('../util.js').beautify;
 var _          = require('underscore');
 
 var TabModel;
@@ -75,6 +75,7 @@ TabSchema.statics.newTab = function(tab_props, callback) {
     
     //preprocess
     tab_props = parse(tab_props); //it looks so simple
+    tab_props.tab = beautify(tab_props.tab); //make it pretty
 
     //create the new tab
     return new TabModel(tab_props);

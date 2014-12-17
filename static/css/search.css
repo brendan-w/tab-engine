@@ -51,6 +51,7 @@
 
 #main li a.tab > *
 {
+	vertical-align: top;
 	margin-right:20px;
 }
 

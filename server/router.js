@@ -15,6 +15,8 @@ var router = function(app) {
 	app.get ("/upload",              m.logged_in,  c.tab.uploadPage);
 	app.post("/upload",              m.logged_in,  c.tab.upload);
 	app.get ("/delete",              m.logged_in,  c.tab.deletePage);
+	app.get ("/import",              m.logged_in,  c.tab.importPage);
+	app.post("/import",              m.logged_in,  c.tab.import);
 	app.post("/delete",              m.logged_in,  c.tab.delete);
 	app.get ("/tab",                               c.tab.tabPage);
 
