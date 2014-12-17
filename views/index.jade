@@ -14,7 +14,7 @@ block nav
 		a(href='/signup') Signup
 
 block body
-	form.shadow
+	form.shadow(action="/search", method="GET")
 		#fields
 			div.field
 				h1 Name
@@ -22,7 +22,7 @@ block body
 				input(type="text", name="artist", placeholder="artist")
 			div.field
 				h1 Tuning
-				select
+				select(name="tuning")
 					option(value='') Any
 					option(value='standard') Standard
 					option(value='half-step down') Half-Step Down
@@ -42,7 +42,7 @@ block body
 
 			div.field
 				h1 Key
-				select
+				select(name="key")
 					option(value='') Any
 					option(value='C') C
 					option(value='C#/Db') C#/Db
@@ -59,7 +59,7 @@ block body
 
 			div.field
 				h1 Scale
-				select
+				select(name="scale")
 					option(value='') Any
 					option(value='Major') Major
 					option(value='Harmonic Minor') Harmonic Minor

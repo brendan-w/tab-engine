@@ -18,7 +18,7 @@ module.exports.tabPage = function(req, res) {
 		}
 
 		res.render('tab', {
-			tab: doc.toAPI(),
+			tab: doc,
 			logged_in: req.session.account !== undefined,
 		});
 	});
@@ -72,7 +72,7 @@ module.exports.deletePage = function(req, res) {
 		}
 		else
 		{
-			res.render('delete', { tab: doc.toAPI() });
+			res.render('delete', { tab: doc });
 		}
 	});
 };
@@ -95,6 +95,23 @@ module.exports.delete = function(req, res) {
 
 
 module.exports.searchPage = function(req, res) {
+
+	var search = {};
+	
+	if(req.query.song)
+		search.song = req.query.song;
+	if(req.query.artist)
+		search.artist = req.query.artist;
+	if(req.query.key)
+		search.key = req.query.key;
+	if(req.query.tuning)
+		search.tuning = req.query.tuning;
+	if(req.query.scale)
+		search.scale = req.query.scale;
+
+	TabModel.find(search, function(err, docs) {
+		console.log(docs);
+	});
 
 	res.render('search', {
 		tabs:[],

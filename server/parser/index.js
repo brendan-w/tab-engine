@@ -31,7 +31,10 @@ module.exports = function(tab_props) {
 	var matrix = matrixer(frames);
 	var scale  = scaler(matrix, key);
 
-	console.log("Scale =", scale);
+	tab_props.key = key;
+	tab_props.scale = "Major";
+
+	console.log("========", scale);
 
 	return tab_props;
 };

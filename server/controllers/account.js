@@ -31,14 +31,9 @@ module.exports.accountPage = function(req, res) {
 			return res.status(400).json({error:'An error occurred'});
 		}
 
-		var tabs = [];
-		docs.forEach(function(d) {
-			tabs.push(d.toAPI());
-		});
-
 		res.render('account', {
 			username: req.session.account.username,
-			tabs: tabs,
+			tabs: docs,
 		});
 	});
 
