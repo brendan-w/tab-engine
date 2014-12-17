@@ -34,8 +34,7 @@
 
 #main li a.tab
 {
-	display:inline-block;
-	width:540px;
+	display:block;
 }
 
 #main li:last-child
@@ -73,18 +72,6 @@ span.scale  { width:8em;  }
 .scale
 {
 	color:rgba(0,0,0,0.5);
-}
-
-#main li .delete
-{
-	width:20px;
-	text-align: center;
-	color:rgba(0,0,0,0.5);
-}
-
-#main li .delete:hover
-{
-	background-color: rgba(0,0,0,0.2);
 }
 
 #main span.notabs

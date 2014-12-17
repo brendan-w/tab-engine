@@ -110,11 +110,15 @@ module.exports.searchPage = function(req, res) {
 		search.scale = req.query.scale;
 
 	TabModel.find(search, function(err, docs) {
-		console.log(docs);
-	});
+		if(err)
+		{
+			console.log(err);
+			docs = [];
+		}
 
-	res.render('search', {
-		tabs:[],
-		logged_in: req.session.account !== undefined,
+		res.render('search', {
+			tabs:docs,
+			logged_in: req.session.account !== undefined,
+		});
 	});
 };

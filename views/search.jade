@@ -1,7 +1,7 @@
 extends ./base.jade
 
 block append head
-	link(rel='stylesheet', type='text/css', href='/static/css/account.css')
+	link(rel='stylesheet', type='text/css', href='/static/css/search.css')
 
 block nav
 	a(href='/') Home
@@ -15,13 +15,21 @@ block nav
 
 block body
 
-	if !tabs || tabs.length === 0
-		span.notabs No Tabs (click 'Upload' to create a new Tab)
-	else
-		ul
+	ul
+		li#labels
+			span.name Name
+			span.artist Artist
+			span.key Key
+			span.scale Scale
+
+		if !tabs || tabs.length === 0
+			li
+				span.notabs No Tabs (click 'Upload' to create a new Tab)
+		else
 			each tab in tabs
 				li
-					a.pretty(href='#{tab.url}')
+					a.tab.pretty(href='/tab?tabid=#{tab.id}')
 						span.name #{tab.name}
 						span.artist #{tab.artist}
-						span.delete X
+						span.key #{tab.key}
+						span.scale #{tab.scale}

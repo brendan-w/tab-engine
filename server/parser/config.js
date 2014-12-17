@@ -10,6 +10,20 @@ module.exports.maxFret        = 36;                        //sanity check (only 
 module.exports.maxFretDigits  = module.exports.maxFret.toString().length;
 
 module.exports.linePrefixTest = /\s*[abcdefg#]+.*-/i;
+module.exports.keys           = [
+	"C",
+	"C#",
+	"D",
+	"D#",
+	"E",
+	"F",
+	"F#",
+	"G",
+	"G#",
+	"A",
+	"A#",
+	"B",
+]
 module.exports.keyTests       = [
 	/C/i,
 	/C#|Db/i,
