@@ -41,7 +41,7 @@ module.exports.importURL = function(url, callback) {
 		loc = song.indexOf(key) + key.length;
 		song = song.substr(loc);
 
-		var eloc = song.indexOf("</h1>");
+		var eloc = song.indexOf(" Tab</h1>");
 		output.song = song.substr(0, eloc);
 
 
