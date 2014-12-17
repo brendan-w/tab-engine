@@ -112,17 +112,34 @@ module.exports.searchPage = function(req, res) {
 	if(req.query.scale)
 		search.scale = req.query.scale + "";
 
+	if(Object.keys(search).length === 0)
+	{
+		//nothing to search
+		res.redirect('/');
+	}
+	else
+	{
+		//turn the text fields into regex
 
-	TabModel.find(search).limit(50).exec(function(err, docs) {
-		if(err)
-		{
-			console.log(err);
-			docs = [];
-		}
+		//run the search
+		TabModel.find(search).limit(50).exec(function(err, docs) {
+			if(err)
+			{
+				console.log(err);
+				docs = [];
+			}
 
-		res.render('search', {
-			tabs:docs,
-			logged_in: req.session.account !== undefined,
+			res.render('search', {
+				tabs:docs,
+				search:{
+					song: req.query.song,
+					artist: req.query.artist,
+					key: req.query.key,
+					tuning: req.query.tuning,
+					scale: req.query.scale,
+				},
+				logged_in: req.session.account !== undefined,
+			});
 		});
-	});
+	}
 };

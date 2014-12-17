@@ -15,6 +15,25 @@ block nav
 
 block body
 
+	#search
+		h1 Search
+
+		if(search.song)
+			span.search Song:
+				span.box #{search.song}
+		if(search.artist)
+			span.search Artist:
+				span.box #{search.artist}
+		if(search.key)
+			span.search Key:
+				span.box #{search.key}
+		if(search.tuning)
+			span.search Tuning:
+				span.box #{search.tuning}
+		if(search.scale)
+			span.search Scale:
+				span.box #{search.scale}
+
 	ul
 		li#labels
 			span.name Name

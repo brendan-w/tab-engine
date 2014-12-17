@@ -65,7 +65,7 @@
 
 span.name   { width:9em; }
 span.artist { width:9em; }
-span.tuning { width:5em; }
+span.tuning { width:6em; }
 span.key    { width:2em; }
 span.scale  { width:8em; }
 
@@ -80,4 +80,25 @@ span.scale  { width:8em; }
 #main span.notabs
 {
 
+}
+
+
+#search
+{
+	margin-bottom: 30px;
+}
+
+span.search
+{
+	margin:10px;
+	
+}
+
+span.box
+{
+	margin:5px;
+	padding: 4px;
+	border-radius: 3px;
+	color:white;
+	background-color: black;
 }
