@@ -1,5 +1,6 @@
 
-var async      = require("async");
+var async      = require('async');
+var url        = require('url');
 var importURL  = require('../util.js').importURL;
 var tabTest    = require('../parser/config.js').stringTest;
 var models     = require('../models');
@@ -107,7 +108,10 @@ module.exports.import = function(req, res) {
 	if(req.body.tabs)
 	{
 		req.body.tabs.split(/[\s,]/).forEach(function(v) {
-			if(v) urls.push(v);
+			if((v) && (url.parse(v).host === "tabs.ultimate-guitar.com"))
+			{
+				urls.push(v);
+			}
 		});
 
 	}
