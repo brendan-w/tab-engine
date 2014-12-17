@@ -17,18 +17,20 @@ block body
 		li#labels
 			span.name Name
 			span.artist Artist
+			span.tuning Tuning
 			span.key Key
 			span.scale Scale
 
 		if !tabs || tabs.length === 0
 			li
-				span.notabs No Tabs (click 'Upload' to create a new Tab)
+				span.notabs No Tabs Found
 		else
 			each tab in tabs
 				li
 					a.tab.pretty(href='/tab?tabid=#{tab.id}')
 						span.name #{tab.name}
 						span.artist #{tab.artist}
+						span.tuning #{tab.tuning}
 						span.key #{tab.key}
 						span.scale #{tab.scale}
 

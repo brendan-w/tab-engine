@@ -8,7 +8,7 @@
 #main ul
 {
 	display: inline-block;
-	width:600px;
+	width:700px;
 	text-align: left;
 }
 
@@ -35,7 +35,7 @@
 #main li a.tab
 {
 	display:inline-block;
-	width:540px;
+	width:640px;
 }
 
 #main li:last-child
@@ -57,6 +57,7 @@
 
 .name,
 .artist,
+.tuning,
 .key,
 .scale
 {
@@ -65,10 +66,12 @@
 
 span.name   { width:9em; }
 span.artist { width:9em; }
-span.key    { width:2em;  }
-span.scale  { width:8em;  }
+span.tuning { width:5em; }
+span.key    { width:2em; }
+span.scale  { width:8em; }
 
 .artist,
+.tuning,
 .key,
 .scale
 {

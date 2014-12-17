@@ -44,9 +44,12 @@ module.exports.upload = function(req, res) {
 		tab: tab,
 		name: name,
 		artist: artist,
-		tuning: "TEMP",
-		key: "TEMP",
-		scale: "TEMP",
+		
+		//these are discovered by the parser
+		tuning: "Unknown",
+		key: "Unknown",
+		scale: "Unknown",
+		
 		owner: req.session.account._id,
 	});
 	
@@ -99,7 +102,7 @@ module.exports.searchPage = function(req, res) {
 	var search = {};
 	
 	if(req.query.song)
-		search.song = req.query.song;
+		search.name = req.query.song;
 	if(req.query.artist)
 		search.artist = req.query.artist;
 	if(req.query.key)
@@ -109,7 +112,7 @@ module.exports.searchPage = function(req, res) {
 	if(req.query.scale)
 		search.scale = req.query.scale;
 
-	TabModel.find(search, function(err, docs) {
+	TabModel.find(search).limit(50).exec(function(err, docs) {
 		if(err)
 		{
 			console.log(err);

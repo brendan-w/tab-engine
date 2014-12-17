@@ -20,6 +20,7 @@ var TabSchema = new mongoose.Schema({
     
     name: {
         type: String,
+        index:true,
         required: true,
         trim: true,
         set: setText,
@@ -27,6 +28,7 @@ var TabSchema = new mongoose.Schema({
     
     artist: {
         type: String,
+        index:true,
         required: true,
         trim: true,
         set: setText,
@@ -96,7 +98,6 @@ TabSchema.statics.findByID = function(tabID, callback) {
 
 
 TabModel = mongoose.model('Tab', TabSchema);
-
 
 module.exports.TabModel  = TabModel;
 module.exports.TabSchema = TabSchema;
